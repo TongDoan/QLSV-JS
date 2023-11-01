@@ -251,6 +251,8 @@ paket-files/
 .idea/
 *.sln.iml
 
+*.appsettings.json
+
 src/QLSV.Web.Mvc/secrets.json
 src/QLSV.Web.Host/secrets.json
 src/QLSV.Migrator/secrets.json
