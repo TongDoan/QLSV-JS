@@ -29,7 +29,4 @@
     <PackageReference Include="Abp.ZeroCore" Version="8.4.0" />
     <PackageReference Include="Abp.AspNetCore.SignalR" Version="8.4.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="weqeqe\" />
-  </ItemGroup>
 </Project>

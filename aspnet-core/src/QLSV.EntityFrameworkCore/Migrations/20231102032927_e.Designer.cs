@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLSV.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using QLSV.EntityFrameworkCore;
 namespace QLSV.Migrations
 {
     [DbContext(typeof(QLSVDbContext))]
-    partial class QLSVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231102032927_e")]
+    partial class e
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1758,15 +1761,6 @@ namespace QLSV.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NgaySinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoiSinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phai")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TenantId")

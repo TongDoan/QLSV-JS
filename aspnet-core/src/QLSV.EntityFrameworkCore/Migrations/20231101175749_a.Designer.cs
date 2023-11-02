@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLSV.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using QLSV.EntityFrameworkCore;
 namespace QLSV.Migrations
 {
     [DbContext(typeof(QLSVDbContext))]
-    partial class QLSVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231101175749_a")]
+    partial class a
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1577,148 +1580,6 @@ namespace QLSV.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("QLSV.DbEntities.KetQua", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Diem")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LanThi")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("MonHocId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TinhTrang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MonHocId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("ketQuas");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.Khoa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("TenKhoa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("khoas");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.MonHoc", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("SoTiet")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenMonHoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("monHoc");
-                });
-
             modelBuilder.Entity("QLSV.DbEntities.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -1760,21 +1621,10 @@ namespace QLSV.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NgaySinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoiSinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phai")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KhoaId");
 
                     b.ToTable("Students");
                 });
@@ -2061,24 +1911,6 @@ namespace QLSV.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("QLSV.DbEntities.KetQua", b =>
-                {
-                    b.HasOne("QLSV.DbEntities.MonHoc", null)
-                        .WithMany("ketQuas")
-                        .HasForeignKey("MonHocId");
-
-                    b.HasOne("QLSV.DbEntities.Student", null)
-                        .WithMany("ketQuas")
-                        .HasForeignKey("StudentId");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
-                {
-                    b.HasOne("QLSV.DbEntities.Khoa", null)
-                        .WithMany("Students")
-                        .HasForeignKey("KhoaId");
-                });
-
             modelBuilder.Entity("QLSV.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("QLSV.Authorization.Users.User", "CreatorUser")
@@ -2175,21 +2007,6 @@ namespace QLSV.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.Khoa", b =>
-                {
-                    b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.MonHoc", b =>
-                {
-                    b.Navigation("ketQuas");
-                });
-
-            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
-                {
-                    b.Navigation("ketQuas");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Abp.Zero.EntityFrameworkCore;
 using QLSV.Authorization.Roles;
 using QLSV.Authorization.Users;
@@ -10,8 +9,12 @@ namespace QLSV.EntityFrameworkCore
 {
     public class QLSVDbContext : AbpZeroDbContext<Tenant, Role, User, QLSVDbContext>
     {
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Khoa> khoas { get; set; }
+        public DbSet<KetQua> ketQuas { get; set; }
+        public DbSet<MonHoc> monHoc { get; set; }
         /* Define a DbSet for each entity of the application */
-        public DbSet<Student> Student { get; set; }
+        
         public QLSVDbContext(DbContextOptions<QLSVDbContext> options)
             : base(options)
         {
