@@ -1,16 +1,14 @@
-﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+﻿using QLSV.DbEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.DbEntities
+namespace QLSV.StudentManagenent.Dto
 {
-    public class Student : FullAuditedAggregateRoot, IMayHaveTenant
+    public class StudentDto
     {
-        public int? TenantId { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public string Class { get; set; }
@@ -18,6 +16,6 @@ namespace QLSV.DbEntities
         public string NgaySinh { get; set; }
         public string NoiSinh { get; set; }
         public int? KhoaId { get; set; }
-        public ICollection<KetQua> ketQuas { get; set; }
+       
     }
 }
