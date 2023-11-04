@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.KetQuaManagenent.Dto
+namespace QLSV.Module.KetQuaManagenent.Dto
 {
     public class GetKetQua
     {
@@ -15,6 +15,6 @@ namespace QLSV.KetQuaManagenent.Dto
         public string TenMonHoc { get; set; }
         public int LanThi { get; set; }
         public double Diem { get; set; }
-        public string? TinhTrang { get; set; }
+        public string TinhTrang { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.MonHocManagenent.Dto;
 using System;
@@ -17,7 +16,6 @@ namespace QLSV.Module.MonHocManagenent
         {
             _monhocRepository = monhocRepository;
         }
- 
         public async Task<List<GetMonHoc>> GetAllMonHoc()
         {
             var lstmh = await _monhocRepository.GetAllListAsync();

@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.QueManagenent.Dto;
 using System;
@@ -17,7 +16,6 @@ namespace QLSV.Module.QueManagenent
         {
             _queRepository = queRepository;
         }
-      
         public async Task<List<GetQue>> GetAllQue()
         {
             var lstmh = await _queRepository.GetAllListAsync();

@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.LopManagenent.Dto;
 using System;
@@ -19,7 +18,6 @@ namespace QLSV.Module.LopManagenent
             _lopRepository = lopRepository;
             _khoa = khoa;
         }
-      
         public async Task<List<GetLop>> GetAllLop()
         {
             var lstst = await _lopRepository.GetAllListAsync();

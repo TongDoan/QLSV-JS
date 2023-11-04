@@ -22,7 +22,6 @@ namespace QLSV.StudentManagenent
             _lop = lop;
             _que = que;
         }
-      
         public async Task<List<GetStudent>> GetAllStudent()
         {
             var lstst = await _studentRepository.GetAllListAsync();
@@ -47,7 +46,6 @@ namespace QLSV.StudentManagenent
                 lst.Add(dto);
             }
             return lst;
-
         }
         public async Task AddAsync(StudentDto input)
         {

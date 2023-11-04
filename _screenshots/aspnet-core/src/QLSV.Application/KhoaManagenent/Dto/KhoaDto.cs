@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.KhoaManagenent.Dto
+namespace QLSV.Module.KhoaManagenent.Dto
 {
     public class KhoaDto
     {

@@ -11,11 +11,11 @@ namespace QLSV.DbEntities
     public class KetQua : FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set;}
-        public int? StudentId { get; set;}
-        public int? MonHocId { get; set;}
-        public int LanThi { get; set;}
-        public double Diem { get; set;}
-        public string? TinhTrang { get; set;}
+        public int? StudentId { get; set;}//loc rieng
+        public int? MonHocId { get; set;} //loc
+        public int LanThi { get; set;} 
+        public double Diem { get; set;}//sap xep
+        public string? TinhTrang { get; set;}//loc
 
     }
 }

@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace QLSV.Module.KetQuaManagenent.Dto
 {
-    public class KetQuaDto
+    public class SearchKetQuaDto
     {
-        public int? StudentId { get; set; }
-        public int? MonHocId { get; set; }
-        public int LanThi { get; set; }
-        public double Diem { get; set; }
+        public string MonHoc { get; set; }
         public string TinhTrang { get; set; }
+        public int SapXep { get; set; }
     }
 }

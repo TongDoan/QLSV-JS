@@ -12,8 +12,8 @@ using QLSV.EntityFrameworkCore;
 namespace QLSV.Migrations
 {
     [DbContext(typeof(QLSVDbContext))]
-    [Migration("20231102143015_m")]
-    partial class m
+    [Migration("20231104032215_a")]
+    partial class a
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1676,6 +1676,51 @@ namespace QLSV.Migrations
                     b.ToTable("khoas");
                 });
 
+            modelBuilder.Entity("QLSV.DbEntities.Lop", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("KhoaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TenLop")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KhoaId");
+
+                    b.ToTable("lops");
+                });
+
             modelBuilder.Entity("QLSV.DbEntities.MonHoc", b =>
                 {
                     b.Property<int>("Id")
@@ -1711,6 +1756,9 @@ namespace QLSV.Migrations
                     b.Property<int>("SoTiet")
                         .HasColumnType("int");
 
+                    b.Property<int>("SoTinChi")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenMonHoc")
                         .HasColumnType("nvarchar(max)");
 
@@ -1722,19 +1770,13 @@ namespace QLSV.Migrations
                     b.ToTable("monHoc");
                 });
 
-            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
+            modelBuilder.Entity("QLSV.DbEntities.Que", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Class")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1751,25 +1793,13 @@ namespace QLSV.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("KhoaId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NgaySinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoiSinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phai")
+                    b.Property<string>("TenQue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TenantId")
@@ -1777,7 +1807,64 @@ namespace QLSV.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KhoaId");
+                    b.ToTable("Ques");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("LopId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NgaySinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QueId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LopId");
+
+                    b.HasIndex("QueId");
 
                     b.ToTable("Students");
                 });
@@ -2075,11 +2162,22 @@ namespace QLSV.Migrations
                         .HasForeignKey("StudentId");
                 });
 
-            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
+            modelBuilder.Entity("QLSV.DbEntities.Lop", b =>
                 {
                     b.HasOne("QLSV.DbEntities.Khoa", null)
-                        .WithMany("Students")
+                        .WithMany("lops")
                         .HasForeignKey("KhoaId");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.Student", b =>
+                {
+                    b.HasOne("QLSV.DbEntities.Lop", null)
+                        .WithMany("Students")
+                        .HasForeignKey("LopId");
+
+                    b.HasOne("QLSV.DbEntities.Que", null)
+                        .WithMany("Students")
+                        .HasForeignKey("QueId");
                 });
 
             modelBuilder.Entity("QLSV.MultiTenancy.Tenant", b =>
@@ -2182,12 +2280,22 @@ namespace QLSV.Migrations
 
             modelBuilder.Entity("QLSV.DbEntities.Khoa", b =>
                 {
+                    b.Navigation("lops");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.Lop", b =>
+                {
                     b.Navigation("Students");
                 });
 
             modelBuilder.Entity("QLSV.DbEntities.MonHoc", b =>
                 {
                     b.Navigation("ketQuas");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.Que", b =>
+                {
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("QLSV.DbEntities.Student", b =>

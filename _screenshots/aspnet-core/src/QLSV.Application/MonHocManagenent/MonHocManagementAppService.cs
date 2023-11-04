@@ -1,15 +1,15 @@
 ﻿using Abp.Domain.Repositories;
 using QLSV.DbEntities;
-using QLSV.MonHocManagenent.Dto;
+using QLSV.Module.MonHocManagenent.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.MonHocManagenent
+namespace QLSV.Module.MonHocManagenent
 {
-    public class MonHocManagementAppService: QLSVAppServiceBase
+    public class MonHocManagementAppService : QLSVAppServiceBase
     {
         private readonly IRepository<MonHoc> _monhocRepository;
         public MonHocManagementAppService(IRepository<MonHoc> monhocRepository)
@@ -18,17 +18,18 @@ namespace QLSV.MonHocManagenent
         }
         public async Task<List<GetMonHoc>> GetAllMonHoc()
         {
-            var lstmh= await _monhocRepository.GetAllListAsync();
+            var lstmh = await _monhocRepository.GetAllListAsync();
             var lst = new List<GetMonHoc>();
 
-            foreach(var i in lstmh)
+            foreach (var i in lstmh)
             {
                 var dto = new GetMonHoc
                 {
-                    Id= i.Id,
-                    TenMonHoc= i.TenMonHoc,
-                    SoTiet= i.SoTiet,
-                    GhiChu= i.GhiChu
+                    Id = i.Id,
+                    TenMonHoc = i.TenMonHoc,
+                    SoTiet = i.SoTiet,
+                    SoTinChi=i.SoTinChi,
+                    GhiChu = i.GhiChu
                 };
                 lst.Add(dto);
             }
@@ -39,9 +40,10 @@ namespace QLSV.MonHocManagenent
         {
             var monhoc = new MonHoc
             {
-               TenMonHoc= input.TenMonHoc,
-               SoTiet= input.SoTiet,
-               GhiChu= input.GhiChu
+                TenMonHoc = input.TenMonHoc,
+                SoTiet = input.SoTiet,
+                SoTinChi=input.SoTinChi,
+                GhiChu = input.GhiChu
             };
             await _monhocRepository.InsertAsync(monhoc);
         }
@@ -54,9 +56,10 @@ namespace QLSV.MonHocManagenent
         public async Task UpdateMonHocAsync(int id, MonHocDto input)
         {
             var query = await _monhocRepository.FirstOrDefaultAsync(e => e.Id == id);
-            query.TenMonHoc= input.TenMonHoc;
-            query.SoTiet= input.SoTiet;
-            query.GhiChu= input.GhiChu;
+            query.TenMonHoc = input.TenMonHoc;
+            query.SoTiet = input.SoTiet;
+            query.SoTinChi= input.SoTinChi;
+            query.GhiChu = input.GhiChu;
             await _monhocRepository.UpdateAsync(query);
         }
     }

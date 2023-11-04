@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.MonHocManagenent.Dto
+namespace QLSV.Module.MonHocManagenent.Dto
 {
     public class MonHocDto
     {
         public string TenMonHoc { get; set; }
         public int SoTiet { get; set; }
-        public string? GhiChu { get; set; }
+        public int SoTinChi { get; set; }
+        public string GhiChu { get; set; }
     }
 }

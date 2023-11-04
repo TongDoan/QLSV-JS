@@ -1,13 +1,13 @@
 ﻿using Abp.Domain.Repositories;
 using QLSV.DbEntities;
-using QLSV.KhoaManagenent.Dto;
+using QLSV.Module.KhoaManagenent.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.KhoaManagenent
+namespace QLSV.Module.KhoaManagenent
 {
     public class KhoaManagementAppService : QLSVAppServiceBase
     {
@@ -26,7 +26,7 @@ namespace QLSV.KhoaManagenent
                 var dto = new GetAllKhoa
                 {
                     Id = i.Id,
-                    TenKhoa=i.TenKhoa
+                    TenKhoa = i.TenKhoa
                 };
                 lst.Add(dto);
             }
@@ -37,7 +37,7 @@ namespace QLSV.KhoaManagenent
         {
             var khoa = new Khoa
             {
-                TenKhoa= input.TenKhoa
+                TenKhoa = input.TenKhoa
             };
             await _khoaRepository.InsertAsync(khoa);
         }
