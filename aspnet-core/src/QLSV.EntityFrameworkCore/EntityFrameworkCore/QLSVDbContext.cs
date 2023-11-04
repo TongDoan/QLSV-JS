@@ -13,8 +13,10 @@ namespace QLSV.EntityFrameworkCore
         public DbSet<Khoa> khoas { get; set; }
         public DbSet<KetQua> ketQuas { get; set; }
         public DbSet<MonHoc> monHoc { get; set; }
+        public DbSet<Lop> lops { get; set; }
+        public DbSet<Que> Ques { get; set; }
         /* Define a DbSet for each entity of the application */
-        
+
         public QLSVDbContext(DbContextOptions<QLSVDbContext> options)
             : base(options)
         {

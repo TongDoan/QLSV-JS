@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace QLSV.DbEntities
 {
-    public class Student : FullAuditedAggregateRoot, IMayHaveTenant
+    public class Student :FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public string Class { get; set; }
         public string Phai { get; set; }
         public string NgaySinh { get; set; }
-        public string NoiSinh { get; set; }
-        public int? KhoaId { get; set; }
+        public int? QueId { get; set; }
+        public int? LopId { get; set; }
         public ICollection<KetQua> ketQuas { get; set; }
     }
 }
