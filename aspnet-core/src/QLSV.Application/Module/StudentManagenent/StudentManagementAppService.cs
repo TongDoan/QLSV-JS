@@ -46,7 +46,6 @@ namespace QLSV.StudentManagenent
                 lst.Add(dto);
             }
             return lst;
-
         }
         public async Task AddAsync(StudentDto input)
         {

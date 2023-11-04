@@ -21,12 +21,33 @@ namespace QLSV.Module.KetQuaManagenent
             _student = student;
             _monhoc = monhoc;
         }
-        public async Task<List<GetKetQua>> GetAllKetQua(int Diem)
+        public async Task<List<GetKetQua>> GetKetQuaStudent(int id)
         {
             var lstkq = await _ketquaRepository.GetAllListAsync();
-
             var lst = new List<GetKetQua>();
-
+            var lstkq1=lstkq.Where(p=>p.StudentId==id);
+            if (id >0)
+            {
+                foreach (var i in lstkq1)
+                {
+                    var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
+                    var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
+                    var dto = new GetKetQua
+                    {
+                        Id = i.Id,
+                        StudentId = i.StudentId,
+                        Name = lstudent.Name,
+                        MonHocId = i.MonHocId,
+                        TenMonHoc = lstmonhoc.TenMonHoc,
+                        LanThi = i.LanThi,
+                        Diem = i.Diem,
+                        TinhTrang = i.TinhTrang
+                    };
+                    lst.Add(dto);
+                }
+            }
+            else
+            {
             foreach (var i in lstkq)
             {
                 var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
@@ -44,6 +65,8 @@ namespace QLSV.Module.KetQuaManagenent
                 };
                 lst.Add(dto);
             }
+            }
+            
             return lst;
 
         }
