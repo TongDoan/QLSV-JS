@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.StudentManagenent.Dto;
 using System;
@@ -21,7 +22,7 @@ namespace QLSV.StudentManagenent
             _lop = lop;
             _que = que;
         }
-
+      
         public async Task<List<GetStudent>> GetAllStudent()
         {
             var lstst = await _studentRepository.GetAllListAsync();

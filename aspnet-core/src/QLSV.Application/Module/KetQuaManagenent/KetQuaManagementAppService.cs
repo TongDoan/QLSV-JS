@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.KetQuaManagenent.Dto;
 using System;
@@ -21,32 +22,7 @@ namespace QLSV.Module.KetQuaManagenent
             _student = student;
             _monhoc = monhoc;
         }
-        public async Task<List<GetKetQua>> GetAllKetQua(int Diem)
-        {
-            var lstkq = await _ketquaRepository.GetAllListAsync();
-
-            var lst = new List<GetKetQua>();
-
-            foreach (var i in lstkq)
-            {
-                var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
-                var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
-                var dto = new GetKetQua
-                {
-                    Id = i.Id,
-                    StudentId = i.StudentId,
-                    Name = lstudent.Name,
-                    MonHocId = i.MonHocId,
-                    TenMonHoc = lstmonhoc.TenMonHoc,
-                    LanThi = i.LanThi,
-                    Diem = i.Diem,
-                    TinhTrang = i.TinhTrang
-                };
-                lst.Add(dto);
-            }
-            return lst;
-
-        }
+        
         public async Task<List<GetKetQua>> GetAllKetQua()
         {
             var lstkq = await _ketquaRepository.GetAllListAsync();

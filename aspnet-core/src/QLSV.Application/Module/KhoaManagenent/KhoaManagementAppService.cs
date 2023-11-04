@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.KhoaManagenent.Dto;
 using System;
@@ -16,6 +17,7 @@ namespace QLSV.Module.KhoaManagenent
         {
             _khoaRepository = khoaRepository;
         }
+  
         public async Task<List<GetAllKhoa>> GetAllKhoaHoc()
         {
             var lstk = await _khoaRepository.GetAllListAsync();
