@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace QLSV.DbEntities
 {
-    public class Khoa : FullAuditedEntity, IMayHaveTenant
+    public class Lop : FullAuditedEntity, IMayHaveTenant
     {
         public int? TenantId { get; set;}
-        public string TenKhoa { get; set;}
-        public ICollection<Lop> lops { get; set;}
+        public int? KhoaId { get; set; }
+        public string TenLop { get; set; }
+        public ICollection<Student> Students { get; set; }
     }
 }
