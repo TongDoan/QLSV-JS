@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.Module.KetQuaManagenent.Dto
+namespace QLSV.Module.TongKetManagement.Dto
 {
-    public class KetQuaDto
+    public class GetTongKet
     {
+        public int Id { get; set; }
         public int? StudentId { get; set; }
-        public int? MonHocId { get; set; }
-        public double DiemQuaTrinh { get; set; }
-        public double DiemCuoiKy { get; set; }
+        public string Name { get; set; }
+        public double Diem_TongKet { get; set; }
+        public string? Xep_loai { get; set; }
         public string Hoc_ky { get; set; }
         public string Nam_hoc { get; set; }
-        public string TinhTrang { get; set; }
     }
 }

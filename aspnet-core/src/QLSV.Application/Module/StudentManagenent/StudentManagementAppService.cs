@@ -21,7 +21,57 @@ namespace QLSV.StudentManagenent
             _lop = lop;
             _que = que;
         }
+        public async Task<List<GetStudent>> GetStudentById(int id)
+        {
+            var lstkq = await _studentRepository.GetAllListAsync();
+            var lst = new List<GetStudent>();
+            var lstkq1 = lstkq.Where(p => p.Id == id);
+            if (id > 0)
+            {
+                foreach (var i in lstkq1)
+                {
+                    var lstlop = await _lop.FirstOrDefaultAsync(e => e.Id == i.LopId);
+                    var lstque = await _que.FirstOrDefaultAsync(e => e.Id == i.QueId);
+                    var dto = new GetStudent
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        Age = i.Age,
+                        Phai = i.Phai,
+                        NgaySinh = i.NgaySinh,
+                        QueId = i.QueId,
+                        TenQue = lstque.TenQue,
+                        LopId = i.LopId,
+                        TenLop = lstlop.TenLop
+                    };
+                    lst.Add(dto);
+                }
+            }
+            else
+            {
+                foreach (var i in lstkq)
+                {
+                    var lstlop = await _lop.FirstOrDefaultAsync(e => e.Id == i.LopId);
+                    var lstque = await _que.FirstOrDefaultAsync(e => e.Id == i.QueId);
+                    var dto = new GetStudent
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        Age = i.Age,
+                        Phai = i.Phai,
+                        NgaySinh = i.NgaySinh,
+                        QueId = i.QueId,
+                        TenQue = lstque.TenQue,
+                        LopId = i.LopId,
+                        TenLop = lstlop.TenLop
+                    };
+                    lst.Add(dto);
+                }
+            }
 
+            return lst;
+
+        }
         public async Task<List<GetStudent>> GetAllStudent()
         {
             var lstst = await _studentRepository.GetAllListAsync();

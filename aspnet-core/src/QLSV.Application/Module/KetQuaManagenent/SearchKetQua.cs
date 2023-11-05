@@ -44,8 +44,9 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
-                        LanThi = i.LanThi,
-                        Diem = i.Diem,
+                        DiemQuaTrinh = i.DiemQuaTrinh,
+                        DiemTongKet = i.DiemTongKet,
+                        DiemCuoiKy = i.DiemCuoiKy,
                         TinhTrang = i.TinhTrang
                     };
                     lst.Add(dto);
@@ -69,8 +70,9 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
-                        LanThi = i.LanThi,
-                        Diem = i.Diem,
+                        DiemQuaTrinh = i.DiemQuaTrinh,
+                        DiemTongKet = i.DiemTongKet,
+                        DiemCuoiKy = i.DiemCuoiKy,
                         TinhTrang = i.TinhTrang
                     };
                     lst.Add(dto);
@@ -92,8 +94,9 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
-                        LanThi = i.LanThi,
-                        Diem = i.Diem,
+                        DiemQuaTrinh = i.DiemQuaTrinh,
+                        DiemTongKet = i.DiemTongKet,
+                        DiemCuoiKy = i.DiemCuoiKy,
                         TinhTrang = i.TinhTrang
                     };
                     lst.Add(dto);
@@ -114,8 +117,9 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
-                        LanThi = i.LanThi,
-                        Diem = i.Diem,
+                        DiemQuaTrinh = i.DiemQuaTrinh,
+                        DiemTongKet = i.DiemTongKet,
+                        DiemCuoiKy = i.DiemCuoiKy,
                         TinhTrang = i.TinhTrang
                     };
                     lst.Add(dto);
@@ -123,11 +127,11 @@ namespace QLSV.Module.KetQuaManagenent
             }
             if (input.SapXep == 1)
             {
-               lst=lst.OrderBy(p => p.Diem).ToList();
+               lst=lst.OrderBy(p => p.DiemTongKet).ToList();
             }
             else if (input.SapXep == 2)
             {
-                lst=lst.OrderByDescending(p => p.Diem).ToList();
+                lst=lst.OrderByDescending(p => p.DiemTongKet).ToList();
             }
             else
             {
