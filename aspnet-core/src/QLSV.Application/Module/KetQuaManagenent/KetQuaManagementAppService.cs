@@ -16,14 +16,14 @@ namespace QLSV.Module.KetQuaManagenent
         private readonly IRepository<KetQua> _ketquaRepository;
         private readonly IRepository<Student> _student;
         private readonly IRepository<MonHoc> _monhoc;
-        private readonly IRepository<TongKet> _tongket;
+        private readonly IRepository<GiaoVien> _giaovien;
         public KetQuaManagementAppService(IRepository<KetQua> ketquaRepository, IRepository<Student> student
-            , IRepository<MonHoc> monhoc, IRepository<TongKet> tongket)
+            , IRepository<MonHoc> monhoc, IRepository<GiaoVien> giaovien)
         {
             _ketquaRepository = ketquaRepository;
             _student = student;
             _monhoc = monhoc;
-            _tongket = tongket;
+            _giaovien = giaovien;
         }
         public async Task<List<GetKetQua>> GetKetQuaStudent(int id)
         {
@@ -36,6 +36,7 @@ namespace QLSV.Module.KetQuaManagenent
                 {
                     var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
                     var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
+                    var lstgv = await _giaovien.FirstOrDefaultAsync(e => e.Id == i.GiaoVienId);
                     var dto = new GetKetQua
                     {
                         Id = i.Id,
@@ -43,6 +44,8 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
+                        GiaoVienId= i.GiaoVienId,
+                        TenGiaoVien=lstgv.Name,
                         DiemQuaTrinh = i.DiemQuaTrinh,
                         DiemTongKet = i.DiemTongKet,
                         DiemCuoiKy = i.DiemCuoiKy,
@@ -59,6 +62,7 @@ namespace QLSV.Module.KetQuaManagenent
                 {
                     var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
                     var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
+                    var lstgv = await _giaovien.FirstOrDefaultAsync(e => e.Id == i.GiaoVienId);
                     var dto = new GetKetQua
                     {
                         Id = i.Id,
@@ -66,6 +70,8 @@ namespace QLSV.Module.KetQuaManagenent
                         Name = lstudent.Name,
                         MonHocId = i.MonHocId,
                         TenMonHoc = lstmonhoc.TenMonHoc,
+                        GiaoVienId = i.GiaoVienId,
+                        TenGiaoVien = lstgv.Name,
                         DiemQuaTrinh = i.DiemQuaTrinh,
                         DiemTongKet = i.DiemTongKet,
                         DiemCuoiKy = i.DiemCuoiKy,
@@ -89,6 +95,7 @@ namespace QLSV.Module.KetQuaManagenent
             {
                 var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
                 var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
+                var lstgv = await _giaovien.FirstOrDefaultAsync(e => e.Id == i.GiaoVienId);
                 var dto = new GetKetQua
                 {
                     Id = i.Id,
@@ -96,6 +103,8 @@ namespace QLSV.Module.KetQuaManagenent
                     Name = lstudent.Name,
                     MonHocId = i.MonHocId,
                     TenMonHoc = lstmonhoc.TenMonHoc,
+                    GiaoVienId = i.GiaoVienId,
+                    TenGiaoVien = lstgv.Name,
                     DiemQuaTrinh = i.DiemQuaTrinh,
                     DiemTongKet = i.DiemTongKet,
                     DiemCuoiKy = i.DiemCuoiKy,
@@ -127,6 +136,7 @@ namespace QLSV.Module.KetQuaManagenent
             {
                 StudentId = input.StudentId,
                 MonHocId = input.MonHocId,
+                GiaoVienId= input.GiaoVienId,
                 DiemQuaTrinh = input.DiemQuaTrinh,
                 DiemCuoiKy = input.DiemCuoiKy,
                 DiemTongKet = DiemTong,
@@ -163,6 +173,7 @@ namespace QLSV.Module.KetQuaManagenent
 
             query.StudentId = input.StudentId;
             query.MonHocId = input.MonHocId;
+            query.GiaoVienId= input.GiaoVienId;
             query.DiemQuaTrinh = input.DiemQuaTrinh;
             query.DiemCuoiKy= input.DiemCuoiKy;
             query.DiemTongKet = DiemTong;
