@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLSV.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using QLSV.EntityFrameworkCore;
 namespace QLSV.Migrations
 {
     [DbContext(typeof(QLSVDbContext))]
-    partial class QLSVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231105120515_mb5")]
+    partial class mb5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1983,8 +1986,6 @@ namespace QLSV.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
-
                     b.ToTable("tongKets");
                 });
 
@@ -2310,13 +2311,6 @@ namespace QLSV.Migrations
                         .HasForeignKey("QueId");
                 });
 
-            modelBuilder.Entity("QLSV.DbEntities.TongKet", b =>
-                {
-                    b.HasOne("QLSV.DbEntities.Student", null)
-                        .WithMany("tongKets")
-                        .HasForeignKey("StudentId");
-                });
-
             modelBuilder.Entity("QLSV.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("QLSV.Authorization.Users.User", "CreatorUser")
@@ -2445,8 +2439,6 @@ namespace QLSV.Migrations
             modelBuilder.Entity("QLSV.DbEntities.Student", b =>
                 {
                     b.Navigation("ketQuas");
-
-                    b.Navigation("tongKets");
                 });
 #pragma warning restore 612, 618
         }

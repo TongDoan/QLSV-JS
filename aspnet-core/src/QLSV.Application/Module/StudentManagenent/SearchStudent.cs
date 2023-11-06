@@ -204,7 +204,7 @@ namespace QLSV.Module.StudentManagenent
             {
                 
                 var lstst = await _studentRepository.GetAllListAsync();
-                var lstst1 = lstst.Where(p => p.Name.ToLower().Contains(input.Name));
+                var lstst1 = lstst.Where(p => p.Name.ToLower().Contains(input.Name.ToLower()));
                 foreach (var i in lstst1)
                 {
                     var lstlop1 = await _lop.FirstOrDefaultAsync(e => e.Id == i.LopId);
