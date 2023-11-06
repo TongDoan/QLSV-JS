@@ -26,6 +26,71 @@ namespace QLSV.Module.TongKetManagement
             _student = student;
             _monhoc = monhoc;
         }
+        public async Task<List<GetTongKet>> GetTongKetByStudentId(int Studentid)
+        {
+            var lsttk = await _tongketRepository.GetAllListAsync();
+            var lst = new List<GetTongKet>();
+            var lsttk1= lsttk.Where(p=>p.StudentId==Studentid);
+            if (Studentid > 0)
+            {
+                foreach (var i in lsttk1)
+                {
+                    double tong = 0;
+                    double tongtin = 0;
+                    double tk = 0;
+                    var query = await _tongketRepository.FirstOrDefaultAsync(e => e.Id == i.Id);
+                    var lstkq = await _ketqua.GetAllListAsync();
+                    var lstkq1 = lstkq.Where(p => p.StudentId
+                    == i.StudentId && p.Hoc_ky == i.Hoc_ky &&
+                    p.Nam_hoc == i.Nam_hoc).ToList();
+                    foreach (var a in lstkq1)
+                    {
+                        var mh = await _monhoc.FirstOrDefaultAsync(e => e.Id == a.MonHocId);
+                        tong += a.DiemTongKet * mh.SoTinChi;
+                        tongtin += mh.SoTinChi;
+                    }
+                    if (tongtin > 0)
+                    {
+                        tk = tong / tongtin;
+                    }
+                    query.Diem_TongKet = tk;
+                    await _tongketRepository.UpdateAsync(query);
+                    var lstst = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
+                    var dto = new GetTongKet
+                    {
+                        Id = i.Id,
+                        StudentId = i.StudentId,
+                        Name = lstst.Name,
+                        Diem_TongKet = i.Diem_TongKet,
+                        Xep_loai = i.Xep_loai,
+                        Hoc_ky = i.Hoc_ky,
+                        Nam_hoc = i.Nam_hoc
+                    };
+                    lst.Add(dto);
+                }
+           
+            }
+            else
+            {
+                foreach (var i in lsttk)
+                {
+                    var lstst = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
+                    var dto = new GetTongKet
+                    {
+                        Id = i.Id,
+                        StudentId = i.StudentId,
+                        Name = lstst.Name,
+                        Diem_TongKet = i.Diem_TongKet,
+                        Xep_loai = i.Xep_loai,
+                        Hoc_ky = i.Hoc_ky,
+                        Nam_hoc = i.Nam_hoc
+                    };
+                    lst.Add(dto);
+                }
+            }
+            return lst;
+
+        }
         public async Task<List<GetTongKet>> GetAllTongKet()
         {
             var lsttk = await _tongketRepository.GetAllListAsync();
