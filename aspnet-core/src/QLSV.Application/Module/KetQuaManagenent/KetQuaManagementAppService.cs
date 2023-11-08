@@ -132,6 +132,8 @@ namespace QLSV.Module.KetQuaManagenent
                     DiemTong = (input.DiemQuaTrinh + input.DiemCuoiKy) / 2;
                 }
             }
+            double x = Math.Truncate(DiemTong * 100) / 100;
+            
             var ketqua = new KetQua
             {
                 StudentId = input.StudentId,
@@ -139,7 +141,7 @@ namespace QLSV.Module.KetQuaManagenent
                 GiaoVienId= input.GiaoVienId,
                 DiemQuaTrinh = input.DiemQuaTrinh,
                 DiemCuoiKy = input.DiemCuoiKy,
-                DiemTongKet = DiemTong,
+                DiemTongKet = x,
                 Hoc_ky = input.Hoc_ky,
                 Nam_hoc = input.Nam_hoc,
                 TinhTrang = input.TinhTrang
