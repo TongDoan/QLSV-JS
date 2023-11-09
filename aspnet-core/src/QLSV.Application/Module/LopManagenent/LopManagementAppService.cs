@@ -18,6 +18,22 @@ namespace QLSV.Module.LopManagenent
             _lopRepository = lopRepository;
             _khoa = khoa;
         }
+        public async Task<GetLop> GetLopById(int id)
+        {
+            var lstst = await _lopRepository.FirstOrDefaultAsync(e => e.Id == id);
+           
+                var lstkhoa = await _khoa.FirstOrDefaultAsync(e => e.Id == lstst.KhoaId);
+                var dto = new GetLop
+                {
+                    Id = lstst.Id,
+                    KhoaId = lstst.KhoaId,
+                    TenKhoa = lstkhoa.TenKhoa,
+                    TenLop = lstst.TenLop
+                };
+              
+            return dto;
+
+        }
         public async Task<List<GetLop>> GetAllLop()
         {
             var lstst = await _lopRepository.GetAllListAsync();

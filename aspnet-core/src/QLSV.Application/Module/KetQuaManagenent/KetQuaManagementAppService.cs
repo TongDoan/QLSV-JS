@@ -25,6 +25,31 @@ namespace QLSV.Module.KetQuaManagenent
             _monhoc = monhoc;
             _giaovien = giaovien;
         }
+        public async Task<GetKetQua> GetKetQuaById(int id)
+        {
+            var lstkq = await _ketquaRepository.FirstOrDefaultAsync(p=>p.Id==id);
+                var lstudent = await _student.FirstOrDefaultAsync(e => e.Id == lstkq.StudentId);
+                var lstmonhoc = await _monhoc.FirstOrDefaultAsync(e => e.Id == lstkq.MonHocId);
+                var lstgv = await _giaovien.FirstOrDefaultAsync(e => e.Id == lstkq.GiaoVienId);
+            var dto = new GetKetQua
+            {
+                Id = lstkq.Id,
+                StudentId = lstkq.StudentId,
+                Name = lstudent.Name,
+                MonHocId = lstkq.MonHocId,
+                TenMonHoc = lstmonhoc.TenMonHoc,
+                GiaoVienId = lstkq.GiaoVienId,
+                TenGiaoVien = lstgv.Name,
+                DiemQuaTrinh = lstkq.DiemQuaTrinh,
+                DiemTongKet = lstkq.DiemTongKet,
+                DiemCuoiKy = lstkq.DiemCuoiKy,
+                Hoc_ky = lstkq.Hoc_ky,
+                Nam_hoc = lstkq.Nam_hoc,
+                TinhTrang = lstkq.TinhTrang
+            };
+            return dto;
+
+        }
         public async Task<List<GetKetQua>> GetKetQuaStudent(int id)
         {
             var lstkq = await _ketquaRepository.GetAllListAsync();

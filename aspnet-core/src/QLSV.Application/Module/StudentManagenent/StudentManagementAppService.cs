@@ -15,12 +15,16 @@ namespace QLSV.StudentManagenent
         private readonly IRepository<Student> _studentRepository;
         private readonly IRepository<Lop> _lop;
         private readonly IRepository<Que> _que;
+        private readonly IRepository<KetQua> _ketqua;
+        private readonly IRepository<TongKet> _tongket;
         public StudentManagementAppService(IRepository<Student> studentRepository, IRepository<Lop> lop,
-            IRepository<Que> que)
+            IRepository<Que> que, IRepository<KetQua> ketqua, IRepository<TongKet> tongket)
         {
             _studentRepository = studentRepository;
             _lop = lop;
             _que = que;
+            _ketqua = ketqua;
+            _tongket=tongket;
         }
         public async Task<List<GetStudent>> GetStudentById(int id)
         {
@@ -114,6 +118,18 @@ namespace QLSV.StudentManagenent
 
         public async Task DeleteStudentAsync(int id)
         {
+            var lstkq= await _ketqua.GetAllListAsync();
+            var lstkq1 = lstkq.Where(p=>p.StudentId==id);
+            foreach(var i in lstkq1)
+            {
+                await _ketqua.DeleteAsync(i.Id);
+            }
+            var lsttk = await _tongket.GetAllListAsync();
+            var lsttk1 = lsttk.Where(p => p.StudentId == id);
+            foreach (var i in lsttk1)
+            {
+                await _tongket.DeleteAsync(i.Id);
+            }
             await _studentRepository.DeleteAsync(id);
         }
 
