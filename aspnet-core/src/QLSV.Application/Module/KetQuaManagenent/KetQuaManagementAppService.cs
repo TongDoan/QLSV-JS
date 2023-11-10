@@ -116,10 +116,22 @@ namespace QLSV.Module.KetQuaManagenent
                     break;
                 }
             }
-            if (ktr)
+            double x = Math.Truncate(DiemTong * 100) / 100;
+            
+            var ketqua = new KetQua
             {
-                await _ketquaRepository.InsertAsync(ketqua);
-            }
+                StudentId = input.StudentId,
+                MonHocId = input.MonHocId,
+                GiaoVienId= input.GiaoVienId,
+                DiemQuaTrinh = input.DiemQuaTrinh,
+                DiemCuoiKy = input.DiemCuoiKy,
+                DiemTongKet = x,
+                Hoc_ky = input.Hoc_ky,
+                Nam_hoc = input.Nam_hoc,
+                TinhTrang = input.TinhTrang
+            };
+            await _ketquaRepository.InsertAsync(ketqua);
+            
         }
 
         public async Task DeleteKetQuaAsync(int id)

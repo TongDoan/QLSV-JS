@@ -139,6 +139,7 @@ namespace QLSV.Module.TongKetManagement
             double tong = 0;
             double tongtin = 0;
             double tk = 0;
+
             var lstkq= await _ketqua.GetAllListAsync();
             var lstkq1=lstkq.Where(p=>p.StudentId
             ==input.StudentId && p.Hoc_ky==input.Hoc_ky &&
@@ -153,10 +154,11 @@ namespace QLSV.Module.TongKetManagement
             {
                 tk=tong/tongtin;
             }
+            double x = Math.Truncate(tk * 100) / 100;
             var tongket = new TongKet
             {
                 StudentId= input.StudentId,
-                Diem_TongKet=tk,
+                Diem_TongKet=x,
                 Xep_loai=input.Xep_loai,
                 Hoc_ky=input.Hoc_ky,
                 Nam_hoc=input.Nam_hoc,
