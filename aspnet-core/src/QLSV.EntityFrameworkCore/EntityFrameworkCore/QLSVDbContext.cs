@@ -15,8 +15,6 @@ namespace QLSV.EntityFrameworkCore
         public DbSet<MonHoc> monHoc { get; set; }
         public DbSet<Lop> lops { get; set; }
         public DbSet<Que> Ques { get; set; }
-        public DbSet<GiaoVien> giaoViens { get; set; }
-        public DbSet<TongKet> tongKets { get; set; }
         /* Define a DbSet for each entity of the application */
 
         public QLSVDbContext(DbContextOptions<QLSVDbContext> options)

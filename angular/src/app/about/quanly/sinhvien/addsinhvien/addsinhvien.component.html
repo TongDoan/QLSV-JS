@@ -1,0 +1,119 @@
+<div class="ThemSinhVien container">
+  <div class="row TheSinhVien" style="display: flex">
+    <div
+      class="col-lg-6 card"
+      style="
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        margin-right: 35px;
+      "
+    >
+      <p
+        style="
+          background-color: #56a4fe;
+          color: white;
+          padding: 20px;
+          font-size: 23px;
+          font-weight: 700;
+          border-radius: 10px;
+        "
+      >
+        Thêm sinh viên
+      </p>
+      <form [formGroup]="formSuaSinhVien">
+        <div>
+          <label for="name">Tên sinh viên </label>
+          <input type="text" pInputText formControlName="name" required /><br />
+          <small *ngIf="!formSuaSinhVien.get('name').valid"
+            >Tên sinh viên hiển thị đầu tiên</small
+          ><br />
+
+          <small
+            style="color: red"
+            *ngIf="
+              !formSuaSinhVien.get('name').valid &&
+              formSuaSinhVien.get('name').touched
+            "
+            >Vui lòng nhập tên
+          </small>
+        </div>
+        <hr />
+        <div>
+          <label for="ngaysinh">Ngày sinh </label>
+          <br />
+          <p-calendar
+            required
+            class="form-group"
+            formControlName="ngaysinh"
+            [readonlyInput]="true"
+            name="ngaysinh"
+            [showIcon]="true"
+            placeholder="Chọn ngày sinh"
+            dateFormat="dd/mm/yy"
+          ></p-calendar>
+          <br />
+          <small *ngIf="!formSuaSinhVien.get('ngaysinh').valid"
+            >Ngày sinh ghi trên giấy khai sinh</small
+          ><br />
+
+          <small
+            style="color: red"
+            *ngIf="
+              !formSuaSinhVien.get('ngaysinh').valid &&
+              formSuaSinhVien.get('ngaysinh').touched
+            "
+            >Vui lòng chọn ngày sinh
+          </small>
+        </div>
+
+        <!-- Nhớ đổi optionLable -->
+
+        <hr />
+        <div class="row flex">
+          <div class="col-lg-6">
+            <p>Chọn lớp</p>
+            <p-dropdown
+              formControlName="lop"
+              [options]="listlop"
+              optionLabel="tenLop"
+            ></p-dropdown>
+          </div>
+          <div class="col-lg-6">
+            <p>Chọn quê</p>
+
+            <p-dropdown
+              formControlName="que"
+              [options]="listque"
+              optionLabel="tenQue"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <hr />
+
+        <hr />
+        <div
+          *ngFor="let gioitinh of gioitinhs"
+          class="field-checkbox LocGioiTinh"
+        >
+          <p-radioButton
+            [inputId]="gioitinh.key"
+            [value]="gioitinh"
+            formControlName="selectedGioiTinh"
+          ></p-radioButton>
+          <label [for]="gioitinh.key" class="ml-2">{{ gioitinh.name }}</label>
+        </div>
+        <hr />
+
+        <button
+          [routerLink]="['/app/about']"
+          (click)="add()"
+          style="background-color: #3b82f6"
+        >
+          Thêm mới
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

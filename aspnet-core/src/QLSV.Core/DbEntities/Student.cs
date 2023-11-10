@@ -18,6 +18,5 @@ namespace QLSV.DbEntities
         public int? QueId { get; set; } //loc
         public int? LopId { get; set; } //loc
         public ICollection<KetQua> ketQuas { get; set; }
-        public ICollection<TongKet> tongKets { get; set; }
     }
 }

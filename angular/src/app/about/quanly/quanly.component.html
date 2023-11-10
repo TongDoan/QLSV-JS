@@ -1,0 +1,153 @@
+<div class="ThemSinhVien container">
+  <br />
+  <div class="row" style="justify-content: center">
+    <div class="col-lg-9">
+      <div class="ThemSinhVien">
+        <form [formGroup]="FormTaoSinhVien"></form>
+      </div>
+
+      <div class="card">
+        <p-table
+          [value]="listsinhvien"
+          [paginator]="true"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          currentPageReportTemplate="Có tất cả {totalRecords} sinh viên"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          editMode="row"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 5%">STT</th>
+              <th style="width: 30%">Tên</th>
+              <th style="width: 10%">Lớp</th>
+              <th style="width: 15%">Ngày sinh</th>
+              <th style="width: 10%">Giới tính</th>
+              <th style="width: 15%">Quê</th>
+
+              <th style="width: 15%">Tùy chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i="rowIndex" let-customer>
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ listsinhvien[i].name }}</td>
+              <td>{{ listsinhvien[i].tenLop }}</td>
+              <td>{{ listsinhvien[i].ngaySinh }}</td>
+              <td>{{ listsinhvien[i].phai }}</td>
+              <td>{{ listsinhvien[i].tenQue }}</td>
+              <td>
+                <button
+                  label="Sửa thông tin"
+                  style="background-color: #3b82f6"
+                  [routerLink]="['/app/update', listsinhvien[i]?.id]"
+                >
+                  <i class="pi pi-pencil"></i> Sửa
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="paginatorleft">
+            <p-button
+              type="button"
+              icon="pi pi-plus"
+              styleClass="p-button-text"
+            ></p-button>
+          </ng-template>
+          <ng-template pTemplate="paginatorright">
+            <p-button
+              type="button"
+              icon="pi pi-cloud"
+              styleClass="p-button-text"
+            ></p-button>
+          </ng-template>
+        </p-table>
+      </div>
+      <div>
+        <p-button label="Tải lại" (click)="reload()"
+          ><i class="pi pi-replay"></i
+        ></p-button>
+
+        <p-button
+          style="margin-left: 10px"
+          label="Thêm"
+          [routerLink]="['/app/add']"
+          ><i class="pi pi-plus"></i
+        ></p-button>
+      </div>
+      <br />
+    </div>
+    <div class="col-lg-3">
+      <!-- Form lọc -->
+      <div class="card Loc">
+        <p style="font-size: 18px; font-weight: 700">Lọc kết quả</p>
+
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 500;
+            color: gray;
+            margin-bottom: 3px;
+          "
+        >
+          Chọn những thông tin muốn lọc:
+        </div>
+
+        <form [formGroup]="formLoc">
+          <!-- Nhớ đổi field -->
+          <p-autoComplete
+            [dropdown]="true"
+            formControlName="selectedSinhVien"
+            placeholder="Nhập tên sinh viên"
+            [suggestions]="filteredSinhVien"
+            (completeMethod)="filterSinhVien($event)"
+            field="name"
+          ></p-autoComplete>
+          <hr />
+          <p-autoComplete
+            [dropdown]="true"
+            formControlName="selectedQue"
+            placeholder="Nhập quê"
+            [suggestions]="filteredQue"
+            (completeMethod)="filterQue($event)"
+            field="tenQue"
+          ></p-autoComplete>
+          <hr />
+          <p-autoComplete
+            [dropdown]="true"
+            formControlName="selectedLop"
+            placeholder="Nhập lớp"
+            [suggestions]="filteredLop"
+            (completeMethod)="filterLop($event)"
+            field="tenLop"
+          ></p-autoComplete>
+          <hr />
+          <div
+            *ngFor="let gioitinh of gioitinhs"
+            class="field-checkbox LocGioiTinh"
+          >
+            <p-radioButton
+              [inputId]="gioitinh.key"
+              [value]="gioitinh"
+              formControlName="selectedGioiTinh"
+            ></p-radioButton>
+            <label [for]="gioitinh.key" class="ml-2">{{ gioitinh.name }}</label>
+          </div>
+          <hr />
+          <p-button label="Lọc" (click)="filter()">
+            <i class="pi pi-filter"></i
+          ></p-button>
+        </form>
+
+        <hr />
+      </div>
+
+      <!-- End form lọc -->
+    </div>
+
+    <!-- <pre>
+            {{ FormTaoSinhVien.value | json }}
+          </pre> -->
+  </div>
+</div>
