@@ -26,6 +26,24 @@ namespace QLSV.Module.TongKetManagement
             _student = student;
             _monhoc = monhoc;
         }
+        public async Task<GetTongKet> GetTongKetById(int id)
+        {
+            var lsttk = await _tongketRepository.FirstOrDefaultAsync(e => e.Id == id);
+                    var lstst = await _student.FirstOrDefaultAsync(e => e.Id == lsttk.StudentId);
+                    var dto = new GetTongKet
+                    {
+                        Id = lsttk.Id,
+                        StudentId = lsttk.StudentId,
+                        Name = lstst.Name,
+                        Diem_TongKet = lsttk.Diem_TongKet,
+                        Xep_loai = lsttk.Xep_loai,
+                        Hoc_ky = lsttk.Hoc_ky,
+                        Nam_hoc = lsttk.Nam_hoc
+                    };
+            
+            return dto;
+
+        }
         public async Task<List<GetTongKet>> GetTongKetByStudentId(int Studentid)
         {
             var lsttk = await _tongketRepository.GetAllListAsync();
