@@ -5,7 +5,7 @@
 namespace QLSV.Migrations
 {
     /// <inheritdoc />
-    public partial class khang1 : Migration
+    public partial class aa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

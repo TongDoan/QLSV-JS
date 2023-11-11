@@ -8,9 +8,15 @@ import { UsersComponent } from "./users/users.component";
 import { TenantsComponent } from "./tenants/tenants.component";
 import { RolesComponent } from "app/roles/roles.component";
 import { ChangePasswordComponent } from "./users/change-password/change-password.component";
-import { SinhvienComponent } from "./about/quanly/sinhvien/sinhvien.component";
-import { AddsinhvienComponent } from "./about/quanly/sinhvien/addsinhvien/addsinhvien.component";
-import { SinhvienstartComponent } from "./about/quanly/sinhvienstart/sinhvienstart.component";
+import { SinhvienComponent } from "./about/quanlysinhvien/sinhvien/sinhvien.component";
+import { AddsinhvienComponent } from "./about/quanlysinhvien/sinhvien/addsinhvien/addsinhvien.component";
+import { SinhvienstartComponent } from "./about/quanlysinhvien/sinhvienstart/sinhvienstart.component";
+import { LopstartComponent } from "./about/quanlylop/lopstart/lopstart.component";
+import { LopComponent } from "./about/quanlylop/lop/lop.component";
+import { AddLopComponent } from "./about/quanlylop/lop/addlop/addlop.component";
+import { AdddiemComponent } from "./about/quanlydiem/diem/adddiem/adddiem.component";
+import { DiemstartComponent } from "./about/quanlydiem/diemstart/diemstart.component";
+import { DiemComponent } from "./about/quanlydiem/diem/diem.component";
 
 @NgModule({
   imports: [
@@ -55,7 +61,7 @@ import { SinhvienstartComponent } from "./about/quanly/sinhvienstart/sinhviensta
             ],
           },
           {
-            path: "update",
+            path: "updatesinhvien",
             component: SinhvienstartComponent,
             canActivate: [AppRouteGuard],
             children: [
@@ -67,8 +73,42 @@ import { SinhvienstartComponent } from "./about/quanly/sinhvienstart/sinhviensta
             ],
           },
           {
+            path: "updatelop",
+            component: LopstartComponent,
+            canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":idlop",
+                component: LopComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
+          },
+          {
+            path: "updatediem",
+            component: DiemstartComponent,
+            canActivate: [AppRouteGuard],
+            children: [
+              {
+                path: ":iddiem",
+                component: DiemComponent,
+                canActivate: [AppRouteGuard],
+              },
+            ],
+          },
+          {
             path: "add",
             component: AddsinhvienComponent,
+            canActivate: [AppRouteGuard],
+          },
+          {
+            path: "addlop",
+            component: AddLopComponent,
+            canActivate: [AppRouteGuard],
+          },
+          {
+            path: "adddiem",
+            component: AdddiemComponent,
             canActivate: [AppRouteGuard],
           },
           {

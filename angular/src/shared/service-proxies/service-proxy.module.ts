@@ -13,13 +13,16 @@ import * as ApiServiceProxies from "./service-proxies";
     ApiServiceProxies.TokenAuthServiceProxy,
     ApiServiceProxies.AccountServiceProxy,
 
+    ApiServiceProxies.SearchStudentServiceProxy,
+    ApiServiceProxies.SearchKetQuaServiceProxy,
     ApiServiceProxies.StudentManagementServiceProxy,
     ApiServiceProxies.KetQuaManagementServiceProxy,
     ApiServiceProxies.QueManagementServiceProxy,
     ApiServiceProxies.KhoaManagementServiceProxy,
     ApiServiceProxies.LopManagementServiceProxy,
     ApiServiceProxies.MonHocManagementServiceProxy,
-    ApiServiceProxies.SearchStudentServiceProxy,
+    ApiServiceProxies.GiaoVienManagementServiceProxy,
+    ApiServiceProxies.TongKetManagementServiceProxy,
 
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],

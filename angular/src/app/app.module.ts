@@ -22,7 +22,6 @@ import { ServiceProxyModule } from "@shared/service-proxies/service-proxy.module
 import { SharedModule } from "@shared/shared.module";
 import { HomeComponent } from "@app/home/home.component";
 import { AboutComponent } from "@app/about/about.component";
-import { SinhvienComponent } from "@app/about/quanly/sinhvien/sinhvien.component";
 import { RadioButtonModule } from "primeng/radiobutton";
 
 // tenants
@@ -49,9 +48,21 @@ import { SidebarComponent } from "./layout/sidebar.component";
 import { SidebarLogoComponent } from "./layout/sidebar-logo.component";
 import { SidebarUserPanelComponent } from "./layout/sidebar-user-panel.component";
 import { SidebarMenuComponent } from "./layout/sidebar-menu.component";
-import { QuanlyComponent } from "./about/quanly/quanly.component";
-import { SinhvienstartComponent } from "./about/quanly/sinhvienstart/sinhvienstart.component";
-import { AddsinhvienComponent } from './about/quanly/sinhvien/addsinhvien/addsinhvien.component';
+
+import { QuanlyComponent } from "./about/quanlysinhvien/quanly.component";
+import { SinhvienComponent } from "./about/quanlysinhvien/sinhvien/sinhvien.component";
+import { SinhvienstartComponent } from "./about/quanlysinhvien/sinhvienstart/sinhvienstart.component";
+import { AddsinhvienComponent } from "./about/quanlysinhvien/sinhvien/addsinhvien/addsinhvien.component";
+
+import { QuanlylopComponent } from "./about/quanlylop/quanlylop.component";
+import { LopstartComponent } from "./about/quanlylop/lopstart/lopstart.component";
+import { LopComponent } from "./about/quanlylop/lop/lop.component";
+import { AddLopComponent } from "./about/quanlylop/lop/addlop/addlop.component";
+
+import { QuanlydiemComponent } from "./about/quanlydiem/quanlydiem.component";
+import { DiemstartComponent } from "./about/quanlydiem/diemstart/diemstart.component";
+import { DiemComponent } from "./about/quanlydiem/diem/diem.component";
+import { AdddiemComponent } from "./about/quanlydiem/diem/adddiem/adddiem.component";
 
 @NgModule({
   declarations: [
@@ -84,8 +95,20 @@ import { AddsinhvienComponent } from './about/quanly/sinhvien/addsinhvien/addsin
     SidebarUserPanelComponent,
     SidebarMenuComponent,
     QuanlyComponent,
+
+    SinhvienComponent,
     SinhvienstartComponent,
     AddsinhvienComponent,
+
+    QuanlylopComponent,
+    LopstartComponent,
+    LopComponent,
+    AddLopComponent,
+
+    QuanlydiemComponent,
+    DiemstartComponent,
+    DiemComponent,
+    AdddiemComponent,
   ],
   imports: [
     CommonModule,

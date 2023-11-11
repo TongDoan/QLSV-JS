@@ -13,5 +13,6 @@ namespace QLSV.DbEntities
         public int? TenantId { get; set;}
         public string TenKhoa { get; set;}
         public ICollection<Lop> lops { get; set;}
+        public ICollection<GiaoVien> giaoViens { get; set; }
     }
 }

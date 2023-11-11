@@ -12,8 +12,8 @@ using QLSV.EntityFrameworkCore;
 namespace QLSV.Migrations
 {
     [DbContext(typeof(QLSVDbContext))]
-    [Migration("20231104152912_khang1")]
-    partial class khang1
+    [Migration("20231110160127_aa")]
+    partial class aa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1580,6 +1580,60 @@ namespace QLSV.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("QLSV.DbEntities.GiaoVien", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("KhoaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NgaySinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KhoaId");
+
+                    b.ToTable("giaoViens");
+                });
+
             modelBuilder.Entity("QLSV.DbEntities.KetQua", b =>
                 {
                     b.Property<int>("Id")
@@ -1600,14 +1654,23 @@ namespace QLSV.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Diem")
+                    b.Property<double>("DiemCuoiKy")
                         .HasColumnType("float");
+
+                    b.Property<double>("DiemQuaTrinh")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DiemTongKet")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("GiaoVienId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hoc_ky")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("LanThi")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2");
@@ -1617,6 +1680,9 @@ namespace QLSV.Migrations
 
                     b.Property<int?>("MonHocId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nam_hoc")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
@@ -1628,6 +1694,8 @@ namespace QLSV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GiaoVienId");
 
                     b.HasIndex("MonHocId");
 
@@ -1867,6 +1935,60 @@ namespace QLSV.Migrations
                     b.HasIndex("QueId");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.TongKet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Diem_TongKet")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Hoc_ky")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Nam_hoc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Xep_loai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("tongKets");
                 });
 
             modelBuilder.Entity("QLSV.MultiTenancy.Tenant", b =>
@@ -2151,8 +2273,19 @@ namespace QLSV.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("QLSV.DbEntities.GiaoVien", b =>
+                {
+                    b.HasOne("QLSV.DbEntities.Khoa", null)
+                        .WithMany("giaoViens")
+                        .HasForeignKey("KhoaId");
+                });
+
             modelBuilder.Entity("QLSV.DbEntities.KetQua", b =>
                 {
+                    b.HasOne("QLSV.DbEntities.GiaoVien", null)
+                        .WithMany("ketQuas")
+                        .HasForeignKey("GiaoVienId");
+
                     b.HasOne("QLSV.DbEntities.MonHoc", null)
                         .WithMany("ketQuas")
                         .HasForeignKey("MonHocId");
@@ -2178,6 +2311,13 @@ namespace QLSV.Migrations
                     b.HasOne("QLSV.DbEntities.Que", null)
                         .WithMany("Students")
                         .HasForeignKey("QueId");
+                });
+
+            modelBuilder.Entity("QLSV.DbEntities.TongKet", b =>
+                {
+                    b.HasOne("QLSV.DbEntities.Student", null)
+                        .WithMany("tongKets")
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("QLSV.MultiTenancy.Tenant", b =>
@@ -2278,8 +2418,15 @@ namespace QLSV.Migrations
                     b.Navigation("Tokens");
                 });
 
+            modelBuilder.Entity("QLSV.DbEntities.GiaoVien", b =>
+                {
+                    b.Navigation("ketQuas");
+                });
+
             modelBuilder.Entity("QLSV.DbEntities.Khoa", b =>
                 {
+                    b.Navigation("giaoViens");
+
                     b.Navigation("lops");
                 });
 
@@ -2301,6 +2448,8 @@ namespace QLSV.Migrations
             modelBuilder.Entity("QLSV.DbEntities.Student", b =>
                 {
                     b.Navigation("ketQuas");
+
+                    b.Navigation("tongKets");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,8 +10,11 @@ namespace QLSV.Module.KetQuaManagenent.Dto
     {
         public int? StudentId { get; set; }
         public int? MonHocId { get; set; }
-        public int LanThi { get; set; }
-        public double Diem { get; set; }
+        public int? GiaoVienId { get; set; }
+        public double DiemQuaTrinh { get; set; }
+        public double DiemCuoiKy { get; set; }
+        public string Hoc_ky { get; set; }
+        public string Nam_hoc { get; set; }
         public string TinhTrang { get; set; }
     }
 }

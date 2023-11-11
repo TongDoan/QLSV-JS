@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using QLSV.DbEntities;
 using QLSV.Module.StudentManagenent.Dto;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QLSV.StudentManagenent
 {
-    public class StudentManagementAppService : QLSVAppServiceBase
+    public class StudentManagementAppService:QLSVAppServiceBase
     {
         private readonly IRepository<Student> _studentRepository;
         private readonly IRepository<Lop> _lop;
@@ -88,14 +89,14 @@ namespace QLSV.StudentManagenent
                 var dto = new GetStudent
                 {
                     Id = i.Id,
-                    Name = i.Name,
-                    Age = i.Age,
-                    Phai = i.Phai,
-                    NgaySinh = i.NgaySinh,
-                    QueId = i.QueId,
-                    TenQue = lstque.TenQue,
-                    LopId = i.LopId,
-                    TenLop = lstlop.TenLop
+                    Name=i.Name,
+                    Age=i.Age,
+                    Phai=i.Phai,
+                    NgaySinh=i.NgaySinh,
+                    QueId=i.QueId,
+                    TenQue=lstque.TenQue,
+                    LopId=i.LopId,    
+                    TenLop=lstlop.TenLop
                 };
                 lst.Add(dto);
             }
@@ -108,9 +109,9 @@ namespace QLSV.StudentManagenent
                 Name = input.Name,
                 Age = input.Age,
                 Phai = input.Phai,
-                NgaySinh = input.NgaySinh,
-                QueId = input.QueId,
-                LopId = input.LopId
+                NgaySinh= input.NgaySinh,
+                QueId= input.QueId,
+                LopId= input.LopId
             };
             await _studentRepository.InsertAsync(student);
         }
@@ -132,7 +133,7 @@ namespace QLSV.StudentManagenent
             await _studentRepository.DeleteAsync(id);
         }
 
-        public async Task UpdateStudentAsync(int id, StudentDto input)
+        public async Task UpdateStudentAsync(int id,StudentDto input)
         {
             var query = await _studentRepository.FirstOrDefaultAsync(e => e.Id == id);
             query.Name = input.Name;

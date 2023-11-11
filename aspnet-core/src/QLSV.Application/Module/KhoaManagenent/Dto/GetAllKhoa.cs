@@ -8,7 +8,7 @@ namespace QLSV.Module.KhoaManagenent.Dto
 {
     public class GetAllKhoa
     {
-        public int Id;
+        public int Id  { get; set; }
         public string TenKhoa { get; set; }
     }
 }

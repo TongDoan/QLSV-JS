@@ -206,6 +206,237 @@ export class ConfigurationServiceProxy {
 }
 
 @Injectable()
+export class GiaoVienManagementServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getAllGiaoVien(): Observable<GetGiaoVien[]> {
+        let url_ = this.baseUrl + "/api/services/app/GiaoVienManagement/GetAllGiaoVien";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllGiaoVien(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllGiaoVien(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetGiaoVien[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetGiaoVien[]>;
+        }));
+    }
+
+    protected processGetAllGiaoVien(response: HttpResponseBase): Observable<GetGiaoVien[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(GetGiaoVien.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    add(body: GiaoVienDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GiaoVienManagement/Add";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAdd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAdd(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processAdd(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteGiaoVien(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GiaoVienManagement/DeleteGiaoVien?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteGiaoVien(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteGiaoVien(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteGiaoVien(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    updateGiaoVien(id: number | undefined, body: GiaoVienDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GiaoVienManagement/UpdateGiaoVien?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateGiaoVien(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateGiaoVien(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateGiaoVien(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class KetQuaManagementServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -214,6 +445,62 @@ export class KetQuaManagementServiceProxy {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getKetQuaById(id: number | undefined): Observable<GetKetQua> {
+        let url_ = this.baseUrl + "/api/services/app/KetQuaManagement/GetKetQuaById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetKetQuaById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetKetQuaById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetKetQua>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetKetQua>;
+        }));
+    }
+
+    protected processGetKetQuaById(response: HttpResponseBase): Observable<GetKetQua> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetKetQua.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
     }
 
     /**
@@ -739,6 +1026,62 @@ export class LopManagementServiceProxy {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLopById(id: number | undefined): Observable<GetLop> {
+        let url_ = this.baseUrl + "/api/services/app/LopManagement/GetLopById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLopById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLopById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetLop>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetLop>;
+        }));
+    }
+
+    protected processGetLopById(response: HttpResponseBase): Observable<GetLop> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLop.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
     }
 
     /**
@@ -2788,6 +3131,356 @@ export class TokenAuthServiceProxy {
 }
 
 @Injectable()
+export class TongKetManagementServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTongKetById(id: number | undefined): Observable<GetTongKet> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/GetTongKetById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTongKetById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTongKetById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTongKet>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTongKet>;
+        }));
+    }
+
+    protected processGetTongKetById(response: HttpResponseBase): Observable<GetTongKet> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTongKet.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param studentid (optional) 
+     * @return Success
+     */
+    getTongKetByStudentId(studentid: number | undefined): Observable<GetTongKet[]> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/GetTongKetByStudentId?";
+        if (studentid === null)
+            throw new Error("The parameter 'studentid' cannot be null.");
+        else if (studentid !== undefined)
+            url_ += "Studentid=" + encodeURIComponent("" + studentid) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTongKetByStudentId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTongKetByStudentId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTongKet[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTongKet[]>;
+        }));
+    }
+
+    protected processGetTongKetByStudentId(response: HttpResponseBase): Observable<GetTongKet[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(GetTongKet.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllTongKet(): Observable<GetTongKet[]> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/GetAllTongKet";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTongKet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTongKet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTongKet[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTongKet[]>;
+        }));
+    }
+
+    protected processGetAllTongKet(response: HttpResponseBase): Observable<GetTongKet[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(GetTongKet.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    add(body: TongKetDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/Add";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAdd(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAdd(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processAdd(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteTongKet(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/DeleteTongKet?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteTongKet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteTongKet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteTongKet(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    updateTongKet(id: number | undefined, body: TongKetDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TongKetManagement/UpdateTongKet?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateTongKet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateTongKet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateTongKet(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class UserServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -3966,6 +4659,7 @@ export interface IFlatPermissionDto {
 }
 
 export class GetAllKhoa implements IGetAllKhoa {
+    id: number;
     tenKhoa: string | undefined;
 
     constructor(data?: IGetAllKhoa) {
@@ -3979,6 +4673,7 @@ export class GetAllKhoa implements IGetAllKhoa {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.tenKhoa = _data["tenKhoa"];
         }
     }
@@ -3992,6 +4687,7 @@ export class GetAllKhoa implements IGetAllKhoa {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["tenKhoa"] = this.tenKhoa;
         return data;
     }
@@ -4005,6 +4701,7 @@ export class GetAllKhoa implements IGetAllKhoa {
 }
 
 export interface IGetAllKhoa {
+    id: number;
     tenKhoa: string | undefined;
 }
 
@@ -4059,14 +4756,86 @@ export interface IGetCurrentLoginInformationsOutput {
     tenant: TenantLoginInfoDto;
 }
 
+export class GetGiaoVien implements IGetGiaoVien {
+    id: number;
+    name: string | undefined;
+    age: number;
+    phai: string | undefined;
+    ngaySinh: string | undefined;
+    khoaId: number | undefined;
+    tenKhoa: string | undefined;
+
+    constructor(data?: IGetGiaoVien) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.age = _data["age"];
+            this.phai = _data["phai"];
+            this.ngaySinh = _data["ngaySinh"];
+            this.khoaId = _data["khoaId"];
+            this.tenKhoa = _data["tenKhoa"];
+        }
+    }
+
+    static fromJS(data: any): GetGiaoVien {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetGiaoVien();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["age"] = this.age;
+        data["phai"] = this.phai;
+        data["ngaySinh"] = this.ngaySinh;
+        data["khoaId"] = this.khoaId;
+        data["tenKhoa"] = this.tenKhoa;
+        return data;
+    }
+
+    clone(): GetGiaoVien {
+        const json = this.toJSON();
+        let result = new GetGiaoVien();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetGiaoVien {
+    id: number;
+    name: string | undefined;
+    age: number;
+    phai: string | undefined;
+    ngaySinh: string | undefined;
+    khoaId: number | undefined;
+    tenKhoa: string | undefined;
+}
+
 export class GetKetQua implements IGetKetQua {
     id: number;
     studentId: number | undefined;
     name: string | undefined;
     monHocId: number | undefined;
     tenMonHoc: string | undefined;
-    lanThi: number;
-    diem: number;
+    giaoVienId: number | undefined;
+    tenGiaoVien: string | undefined;
+    diemQuaTrinh: number;
+    diemCuoiKy: number;
+    diemTongKet: number;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
     tinhTrang: string | undefined;
 
     constructor(data?: IGetKetQua) {
@@ -4085,8 +4854,13 @@ export class GetKetQua implements IGetKetQua {
             this.name = _data["name"];
             this.monHocId = _data["monHocId"];
             this.tenMonHoc = _data["tenMonHoc"];
-            this.lanThi = _data["lanThi"];
-            this.diem = _data["diem"];
+            this.giaoVienId = _data["giaoVienId"];
+            this.tenGiaoVien = _data["tenGiaoVien"];
+            this.diemQuaTrinh = _data["diemQuaTrinh"];
+            this.diemCuoiKy = _data["diemCuoiKy"];
+            this.diemTongKet = _data["diemTongKet"];
+            this.hoc_ky = _data["hoc_ky"];
+            this.nam_hoc = _data["nam_hoc"];
             this.tinhTrang = _data["tinhTrang"];
         }
     }
@@ -4105,8 +4879,13 @@ export class GetKetQua implements IGetKetQua {
         data["name"] = this.name;
         data["monHocId"] = this.monHocId;
         data["tenMonHoc"] = this.tenMonHoc;
-        data["lanThi"] = this.lanThi;
-        data["diem"] = this.diem;
+        data["giaoVienId"] = this.giaoVienId;
+        data["tenGiaoVien"] = this.tenGiaoVien;
+        data["diemQuaTrinh"] = this.diemQuaTrinh;
+        data["diemCuoiKy"] = this.diemCuoiKy;
+        data["diemTongKet"] = this.diemTongKet;
+        data["hoc_ky"] = this.hoc_ky;
+        data["nam_hoc"] = this.nam_hoc;
         data["tinhTrang"] = this.tinhTrang;
         return data;
     }
@@ -4125,8 +4904,13 @@ export interface IGetKetQua {
     name: string | undefined;
     monHocId: number | undefined;
     tenMonHoc: string | undefined;
-    lanThi: number;
-    diem: number;
+    giaoVienId: number | undefined;
+    tenGiaoVien: string | undefined;
+    diemQuaTrinh: number;
+    diemCuoiKy: number;
+    diemTongKet: number;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
     tinhTrang: string | undefined;
 }
 
@@ -4433,6 +5217,132 @@ export interface IGetStudent {
     tenLop: string | undefined;
 }
 
+export class GetTongKet implements IGetTongKet {
+    id: number;
+    studentId: number | undefined;
+    name: string | undefined;
+    diem_TongKet: number;
+    xep_loai: string | undefined;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
+
+    constructor(data?: IGetTongKet) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.studentId = _data["studentId"];
+            this.name = _data["name"];
+            this.diem_TongKet = _data["diem_TongKet"];
+            this.xep_loai = _data["xep_loai"];
+            this.hoc_ky = _data["hoc_ky"];
+            this.nam_hoc = _data["nam_hoc"];
+        }
+    }
+
+    static fromJS(data: any): GetTongKet {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTongKet();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["studentId"] = this.studentId;
+        data["name"] = this.name;
+        data["diem_TongKet"] = this.diem_TongKet;
+        data["xep_loai"] = this.xep_loai;
+        data["hoc_ky"] = this.hoc_ky;
+        data["nam_hoc"] = this.nam_hoc;
+        return data;
+    }
+
+    clone(): GetTongKet {
+        const json = this.toJSON();
+        let result = new GetTongKet();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGetTongKet {
+    id: number;
+    studentId: number | undefined;
+    name: string | undefined;
+    diem_TongKet: number;
+    xep_loai: string | undefined;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
+}
+
+export class GiaoVienDto implements IGiaoVienDto {
+    name: string | undefined;
+    age: number;
+    phai: string | undefined;
+    ngaySinh: string | undefined;
+    khoaId: number | undefined;
+
+    constructor(data?: IGiaoVienDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.age = _data["age"];
+            this.phai = _data["phai"];
+            this.ngaySinh = _data["ngaySinh"];
+            this.khoaId = _data["khoaId"];
+        }
+    }
+
+    static fromJS(data: any): GiaoVienDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GiaoVienDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["age"] = this.age;
+        data["phai"] = this.phai;
+        data["ngaySinh"] = this.ngaySinh;
+        data["khoaId"] = this.khoaId;
+        return data;
+    }
+
+    clone(): GiaoVienDto {
+        const json = this.toJSON();
+        let result = new GiaoVienDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IGiaoVienDto {
+    name: string | undefined;
+    age: number;
+    phai: string | undefined;
+    ngaySinh: string | undefined;
+    khoaId: number | undefined;
+}
+
 export class Int64EntityDto implements IInt64EntityDto {
     id: number;
 
@@ -4569,8 +5479,11 @@ export interface IIsTenantAvailableOutput {
 export class KetQuaDto implements IKetQuaDto {
     studentId: number | undefined;
     monHocId: number | undefined;
-    lanThi: number;
-    diem: number;
+    giaoVienId: number | undefined;
+    diemQuaTrinh: number;
+    diemCuoiKy: number;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
     tinhTrang: string | undefined;
 
     constructor(data?: IKetQuaDto) {
@@ -4586,8 +5499,11 @@ export class KetQuaDto implements IKetQuaDto {
         if (_data) {
             this.studentId = _data["studentId"];
             this.monHocId = _data["monHocId"];
-            this.lanThi = _data["lanThi"];
-            this.diem = _data["diem"];
+            this.giaoVienId = _data["giaoVienId"];
+            this.diemQuaTrinh = _data["diemQuaTrinh"];
+            this.diemCuoiKy = _data["diemCuoiKy"];
+            this.hoc_ky = _data["hoc_ky"];
+            this.nam_hoc = _data["nam_hoc"];
             this.tinhTrang = _data["tinhTrang"];
         }
     }
@@ -4603,8 +5519,11 @@ export class KetQuaDto implements IKetQuaDto {
         data = typeof data === 'object' ? data : {};
         data["studentId"] = this.studentId;
         data["monHocId"] = this.monHocId;
-        data["lanThi"] = this.lanThi;
-        data["diem"] = this.diem;
+        data["giaoVienId"] = this.giaoVienId;
+        data["diemQuaTrinh"] = this.diemQuaTrinh;
+        data["diemCuoiKy"] = this.diemCuoiKy;
+        data["hoc_ky"] = this.hoc_ky;
+        data["nam_hoc"] = this.nam_hoc;
         data["tinhTrang"] = this.tinhTrang;
         return data;
     }
@@ -4620,8 +5539,11 @@ export class KetQuaDto implements IKetQuaDto {
 export interface IKetQuaDto {
     studentId: number | undefined;
     monHocId: number | undefined;
-    lanThi: number;
-    diem: number;
+    giaoVienId: number | undefined;
+    diemQuaTrinh: number;
+    diemCuoiKy: number;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
     tinhTrang: string | undefined;
 }
 
@@ -5654,6 +6576,61 @@ export interface ITenantLoginInfoDto {
     id: number;
     tenancyName: string | undefined;
     name: string | undefined;
+}
+
+export class TongKetDto implements ITongKetDto {
+    studentId: number | undefined;
+    xep_loai: string | undefined;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
+
+    constructor(data?: ITongKetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.studentId = _data["studentId"];
+            this.xep_loai = _data["xep_loai"];
+            this.hoc_ky = _data["hoc_ky"];
+            this.nam_hoc = _data["nam_hoc"];
+        }
+    }
+
+    static fromJS(data: any): TongKetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TongKetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["studentId"] = this.studentId;
+        data["xep_loai"] = this.xep_loai;
+        data["hoc_ky"] = this.hoc_ky;
+        data["nam_hoc"] = this.nam_hoc;
+        return data;
+    }
+
+    clone(): TongKetDto {
+        const json = this.toJSON();
+        let result = new TongKetDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ITongKetDto {
+    studentId: number | undefined;
+    xep_loai: string | undefined;
+    hoc_ky: string | undefined;
+    nam_hoc: string | undefined;
 }
 
 export class UserDto implements IUserDto {

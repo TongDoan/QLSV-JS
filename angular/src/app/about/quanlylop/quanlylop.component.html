@@ -1,0 +1,63 @@
+<div class="ThemSinhVien container">
+  <br />
+  <div class="row" style="justify-content: center">
+    <div class="col-lg-9">
+      <div class="card">
+        <p-table
+          [value]="listlop"
+          [paginator]="true"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          currentPageReportTemplate="Có tất cả {totalRecords} lớp"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          editMode="row"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 15%">STT</th>
+              <th style="width: 25%">Tên Lớp</th>
+              <th style="width: 30%">Tên Khoa</th>
+              <th style="width: 15%">Tùy chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i="rowIndex" let-customer>
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ listlop[i].tenLop }}</td>
+              <td>{{ listlop[i].tenKhoa }}</td>
+
+              <td>
+                <button
+                  label="Sửa thông tin"
+                  style="background-color: #3b82f6"
+                  [routerLink]="['/app/updatelop', listlop[i]?.id]"
+                >
+                  <i class="pi pi-pencil"></i> Sửa
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="paginatorleft"> </ng-template>
+          <ng-template pTemplate="paginatorright"> </ng-template>
+        </p-table>
+      </div>
+      <div>
+        <p-button label="Tải lại" (click)="reload()"
+          ><i class="pi pi-replay"></i
+        ></p-button>
+        <p-button
+          style="margin-left: 10px"
+          label="Thêm"
+          [routerLink]="['/app/addlop']"
+          ><i class="pi pi-plus"></i
+        ></p-button>
+      </div>
+      <br />
+    </div>
+
+    <!-- <pre>
+                {{ FormTaoSinhVien.value | json }}
+              </pre> -->
+  </div>
+</div>

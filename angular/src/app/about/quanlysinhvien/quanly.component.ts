@@ -24,6 +24,7 @@ export class QuanlyComponent {
   listlop: GetLop[];
 
   listsinhvienfiltered: GetStudent[];
+  listsinhvienfilteredid: GetStudent[];
 
   filteredQue: GetQue[];
   filteredLop: GetLop[];
@@ -34,12 +35,11 @@ export class QuanlyComponent {
     { name: "Nữ", key: "Nữ" },
   ];
 
-  FormTaoSinhVien: FormGroup;
   formLoc: FormGroup;
+  formLocId: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-
     private studentservice: StudentManagementServiceProxy,
     private lopservice: LopManagementServiceProxy,
     private queservice: QueManagementServiceProxy,
@@ -48,21 +48,21 @@ export class QuanlyComponent {
   ) {}
 
   ngOnInit(): void {
-    this.FormTaoSinhVien = this.fb.group({
-      name: ["", Validators.required],
-      hocbong: ["", Validators.required],
-    });
     this.formLoc = this.fb.group({
       selectedSinhVien: ["", Validators.required],
       selectedQue: ["", Validators.required],
       selectedLop: ["", Validators.required],
       selectedGioiTinh: ["", Validators.required],
     });
+    this.formLocId = this.fb.group({
+      id: ["", Validators.required],
+    });
 
     this.queservice.getAllQue().subscribe((result) => {
       this.listque = result;
       this.cd.detectChanges();
     });
+
     this.studentservice.getAllStudent().subscribe((result) => {
       this.listsinhvien = result;
       this.cd.detectChanges();
@@ -109,6 +109,16 @@ export class QuanlyComponent {
       )
       .subscribe((result) => {
         this.listsinhvien = result;
+        this.cd.detectChanges();
+      });
+  }
+
+  filterid() {
+    this.studentservice
+      .getStudentById(this.formLocId.value.id)
+      .subscribe((result) => {
+        this.listsinhvien = result;
+        console.log("finnish filter student id");
         this.cd.detectChanges();
       });
   }

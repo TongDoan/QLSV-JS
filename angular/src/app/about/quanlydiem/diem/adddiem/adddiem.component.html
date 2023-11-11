@@ -1,0 +1,184 @@
+<div class="ThemSinhVien container">
+  <div class="row TheSinhVien" style="display: flex">
+    <div
+      class="col-lg-6 card"
+      style="
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        margin-right: 35px;
+      "
+    >
+      <p
+        style="
+          background-color: #56a4fe;
+          color: white;
+          padding: 20px;
+          font-size: 23px;
+          font-weight: 700;
+          border-radius: 10px;
+        "
+      >
+        Vui lòng chọn đủ thông tin
+      </p>
+      <pre>
+            {{ formSuaDiem.value | json }}
+          </pre
+      >
+      <form [formGroup]="formSuaDiem">
+        <div class="row">
+          <div class="col-lg-6">
+            <div>
+              <label for="masv">Mã sinh viên </label><br />
+              <input
+                type="number"
+                pInputText
+                formControlName="masv"
+                required
+              /><br />
+              <small *ngIf="!formSuaDiem.get('masv').valid"
+                >Mã cấp trên thẻ sinh viên</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaDiem.get('masv').valid &&
+                  formSuaDiem.get('masv').touched
+                "
+                >Vui lòng nhập mã sinh viên
+              </small>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div>
+              <label for="namhoc">Năm học </label><br />
+              <input
+                type="text"
+                pInputText
+                formControlName="namhoc"
+                required
+              /><br />
+              <small *ngIf="!formSuaDiem.get('namhoc').valid"
+                >Nhập năm học </small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaDiem.get('namhoc').valid &&
+                  formSuaDiem.get('namhoc').touched
+                "
+                >Vui lòng nhập năm học
+              </small>
+            </div>
+          </div>
+
+          <div class="col-lg-2 LocHocKi">
+            <label for="hocki">Hoc kì </label><br />
+            <div *ngFor="let hocki of hockis" class="field-checkbox Lochocki">
+              <p-radioButton
+                [inputId]="hocki.key"
+                [value]="hocki"
+                formControlName="selectedhocki"
+              ></p-radioButton>
+              <label [for]="hocki.key" class="ml-2">{{ hocki.name }}</label>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+        <div class="row">
+          <div class="col-lg-6">
+            <div>
+              <label for="diemquatrinh">Điểm quá trình </label><br />
+              <input
+                type="number"
+                pInputText
+                formControlName="diemquatrinh"
+                required
+              /><br />
+              <small *ngIf="!formSuaDiem.get('diemquatrinh').valid"
+                >Dựa trên điểm chuyên cần và kiểm tra</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaDiem.get('diemquatrinh').valid &&
+                  formSuaDiem.get('diemquatrinh').touched
+                "
+                >Vui lòng nhập điểm quá trình
+              </small>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div>
+              <label for="diemcuoiky">Điểm cuối kì </label><br />
+              <input
+                type="number"
+                pInputText
+                formControlName="diemcuoiky"
+                required
+              /><br />
+              <small *ngIf="!formSuaDiem.get('diemcuoiky').valid"
+                >Điểm dựa trên thi cuối kì và điểm thành phần</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !formSuaDiem.get('diemcuoiky').valid &&
+                  formSuaDiem.get('diemcuoiky').touched
+                "
+                >Vui lòng nhập điểm cuối kì
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Nhớ đổi optionLable -->
+        <div class="row flex">
+          <div class="col-lg-6">
+            <p>Chọn môn</p>
+            <p-dropdown
+              formControlName="mon"
+              [options]="listmonhoc"
+              optionLabel="tenMonHoc"
+            ></p-dropdown>
+          </div>
+
+          <div class="col-lg-6">
+            <p>Chọn giáo viên</p>
+            <p-dropdown
+              formControlName="giangvien"
+              [options]="listgiaovien"
+              optionLabel="name"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <hr />
+        <div>
+          <label for="tinhtrang">Tình trạng </label><br />
+          <input pInputText formControlName="tinhtrang" required /><br />
+          <small *ngIf="!formSuaDiem.get('tinhtrang').valid">Mô tả nếu có</small
+          ><br />
+        </div>
+        <hr />
+
+        &nbsp;
+        <button
+          [routerLink]="['/app/about']"
+          (click)="add()"
+          style="background-color: #3b82f6"
+        >
+          Thêm mới
+        </button>
+      </form>
+    </div>
+    <div class="col-lg-5" style="height: fit-content; padding: 20px"></div>
+  </div>
+</div>

@@ -1,11 +1,35 @@
 <div class="ThemSinhVien container">
   <br />
+  <form [formGroup]="formLocId" style="padding: 7.5px">
+    <div class="row flex">
+      <div>
+        <input
+          placeholder="Tìm theo mã sinh viên"
+          type="number"
+          formControlName="id"
+          required
+          style="padding: 9px"
+        />
+        <br />
+      </div>
+      <p-button
+        style="display: contents"
+        [disabled]="!formLocId.valid"
+        (click)="filterid()"
+      >
+        <i class="pi pi-search"></i
+      ></p-button>
+    </div>
+    <small
+      style="color: red; z-index: 1"
+      *ngIf="!formLocId.get('id').valid && formLocId.get('id').touched"
+      >Vui lòng nhập mã sinh viên
+    </small>
+  </form>
+  <br />
+
   <div class="row" style="justify-content: center">
     <div class="col-lg-9">
-      <div class="ThemSinhVien">
-        <form [formGroup]="FormTaoSinhVien"></form>
-      </div>
-
       <div class="card">
         <p-table
           [value]="listsinhvien"
@@ -20,9 +44,10 @@
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 5%">STT</th>
-              <th style="width: 30%">Tên</th>
+              <th style="width: 25%">Tên</th>
+              <th style="width: 8%">Mã</th>
               <th style="width: 10%">Lớp</th>
-              <th style="width: 15%">Ngày sinh</th>
+              <th style="width: 12%">Ngày sinh</th>
               <th style="width: 10%">Giới tính</th>
               <th style="width: 15%">Quê</th>
 
@@ -33,6 +58,7 @@
             <tr>
               <td>{{ i + 1 }}</td>
               <td>{{ listsinhvien[i].name }}</td>
+              <td>{{ listsinhvien[i].id }}</td>
               <td>{{ listsinhvien[i].tenLop }}</td>
               <td>{{ listsinhvien[i].ngaySinh }}</td>
               <td>{{ listsinhvien[i].phai }}</td>
@@ -41,27 +67,15 @@
                 <button
                   label="Sửa thông tin"
                   style="background-color: #3b82f6"
-                  [routerLink]="['/app/update', listsinhvien[i]?.id]"
+                  [routerLink]="['/app/updatesinhvien', listsinhvien[i]?.id]"
                 >
                   <i class="pi pi-pencil"></i> Sửa
                 </button>
               </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="paginatorleft">
-            <p-button
-              type="button"
-              icon="pi pi-plus"
-              styleClass="p-button-text"
-            ></p-button>
-          </ng-template>
-          <ng-template pTemplate="paginatorright">
-            <p-button
-              type="button"
-              icon="pi pi-cloud"
-              styleClass="p-button-text"
-            ></p-button>
-          </ng-template>
+          <ng-template pTemplate="paginatorleft"> </ng-template>
+          <ng-template pTemplate="paginatorright"> </ng-template>
         </p-table>
       </div>
       <div>
@@ -147,7 +161,7 @@
     </div>
 
     <!-- <pre>
-            {{ FormTaoSinhVien.value | json }}
+            {{ formLocId.value | json }}
           </pre> -->
   </div>
 </div>

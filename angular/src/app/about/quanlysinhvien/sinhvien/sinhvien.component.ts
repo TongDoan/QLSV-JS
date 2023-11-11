@@ -68,6 +68,7 @@ export class SinhvienComponent {
       this.sinhvienduocchon = result;
       this.cd.detectChanges();
     });
+
     this.lopservice.getAllLop().subscribe((result) => {
       this.listlop = result;
       this.cd.detectChanges();
@@ -130,9 +131,15 @@ export class SinhvienComponent {
   }
 
   delete() {
-    this.studentservice
-      .deleteStudent(this.idsinhvien)
-      .subscribe((result) => {});
-    this.cd.detectChanges();
+    const confirmUpload = confirm(
+      "Xóa sinh viên cũng sẽ xóa tất cả điểm của họ"
+    );
+
+    if (confirmUpload) {
+      this.studentservice
+        .deleteStudent(this.idsinhvien)
+        .subscribe((result) => {});
+      this.cd.detectChanges();
+    }
   }
 }

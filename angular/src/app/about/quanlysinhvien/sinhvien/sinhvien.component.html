@@ -19,7 +19,7 @@
           border-radius: 10px;
         "
       >
-        Vui lòng chọn đủ thông tin
+        Vui lòng điền đủ thông tin
       </p>
       <form [formGroup]="formSuaSinhVien">
         <div>
@@ -108,7 +108,7 @@
           (completeMethod)="filterLop($event)"
           field="tenLop"
         ></p-autoComplete> -->
-        <hr />
+
         <div
           *ngFor="let gioitinh of gioitinhs"
           class="field-checkbox LocGioiTinh"
@@ -122,6 +122,7 @@
         </div>
         <hr />
         <button
+          [disabled]="!formSuaSinhVien.valid"
           [routerLink]="['/app/about']"
           (click)="update()"
           style="background-color: #f59e0b"
@@ -130,9 +131,10 @@
         </button>
         &nbsp;
         <button
+          [disabled]="!formSuaSinhVien.valid"
           [routerLink]="['/app/about']"
           (click)="add()"
-          style="background-color: #3b82f6"
+          style="background-color: #22c55e"
         >
           Thêm mới
         </button>
