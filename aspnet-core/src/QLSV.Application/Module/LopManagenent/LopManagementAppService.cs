@@ -13,10 +13,18 @@ namespace QLSV.Module.LopManagenent
     {
         private readonly IRepository<Lop> _lopRepository;
         private readonly IRepository<Khoa> _khoa;
-        public LopManagementAppService(IRepository<Lop> lopRepository, IRepository<Khoa> khoa)
+        private readonly IRepository<Student> _student;
+        private readonly IRepository<KetQua> _ketqua;
+        private readonly IRepository<TongKet> _tongket;
+        public LopManagementAppService(IRepository<Lop> lopRepository, IRepository<Khoa> khoa,
+            IRepository<Student> student, IRepository<KetQua> ketqua,
+            IRepository<TongKet> tongket)
         {
             _lopRepository = lopRepository;
             _khoa = khoa;
+            _student = student;
+            _ketqua = ketqua;
+            _tongket= tongket;
         }
         public async Task<GetLop> GetLopById(int id)
         {
@@ -66,6 +74,24 @@ namespace QLSV.Module.LopManagenent
 
         public async Task DeleteLopAsync(int id)
         {
+            var lstst = await _student.GetAllListAsync();
+            var lstst1 = lstst.Where(p => p.LopId == id);
+            foreach (var e in lstst1)
+            {
+                var lstkq = await _ketqua.GetAllListAsync();
+                var lstkq1 = lstkq.Where(p => p.StudentId == e.Id);
+                foreach (var i in lstkq1)
+                {
+                    await _ketqua.DeleteAsync(i.Id);
+                }
+                var lsttk = await _tongket.GetAllListAsync();
+                var lsttk1 = lsttk.Where(p => p.StudentId == e.Id);
+                foreach (var i in lsttk1)
+                {
+                    await _tongket.DeleteAsync(i.Id);
+                }
+                await _student.DeleteAsync(e.Id);
+            }
             await _lopRepository.DeleteAsync(id);
         }
 
