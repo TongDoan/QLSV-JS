@@ -102,7 +102,7 @@
             font-size: 12px;
             font-weight: 500;
             color: gray;
-            margin-bottom: 3px;
+            margin-bottom: 6px;
           "
         >
           Chọn những thông tin muốn lọc:
@@ -110,14 +110,19 @@
 
         <form [formGroup]="formLoc">
           <!-- Nhớ đổi field -->
-          <p-autoComplete
-            [dropdown]="true"
-            formControlName="selectedSinhVien"
-            placeholder="Nhập tên sinh viên"
-            [suggestions]="filteredSinhVien"
-            (completeMethod)="filterSinhVien($event)"
-            field="name"
-          ></p-autoComplete>
+          <div>
+            <label for="name">Tên sinh viên </label><br />
+            <input pInputText formControlName="name" required /><br />
+            <small *ngIf="!formLoc.get('name').valid"
+              >Nhập một phần hoặc toàn bộ tên</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="!formLoc.get('name').valid && formLoc.get('name').touched"
+              >Vui lòng nhập điểm tên sinh viên
+            </small>
+          </div>
           <hr />
           <p-autoComplete
             [dropdown]="true"
