@@ -37,8 +37,7 @@ namespace QLSV.Module.TongKetManagement
                         Name = lstst.Name,
                         Diem_TongKet = lsttk.Diem_TongKet,
                         Xep_loai = lsttk.Xep_loai,
-                        Hoc_ky = lsttk.Hoc_ky,
-                        Nam_hoc = lsttk.Nam_hoc
+                      
                     };
             
             return dto;
@@ -59,8 +58,7 @@ namespace QLSV.Module.TongKetManagement
                     var query = await _tongketRepository.FirstOrDefaultAsync(e => e.Id == i.Id);
                     var lstkq = await _ketqua.GetAllListAsync();
                     var lstkq1 = lstkq.Where(p => p.StudentId
-                    == i.StudentId && p.Hoc_ky == i.Hoc_ky &&
-                    p.Nam_hoc == i.Nam_hoc).ToList();
+                    == i.StudentId).ToList();
                     foreach (var a in lstkq1)
                     {
                         var mh = await _monhoc.FirstOrDefaultAsync(e => e.Id == a.MonHocId);
@@ -71,7 +69,42 @@ namespace QLSV.Module.TongKetManagement
                     {
                         tk = tong / tongtin;
                     }
-                    query.Diem_TongKet = tk;
+                    double x = Math.Truncate(tk * 100) / 100;
+                    String xeploai = "";
+                    if (8.5 <= x && x <= 10)
+                    {
+                        xeploai = "A";
+                    }
+                    else if (8 <= x && x <= 8.4)
+                    {
+                        xeploai = "B+";
+                    }
+                    else if (7 <= x && x <= 7.9)
+                    {
+                        xeploai = "B";
+                    }
+                    else if (6.5 <= x && x <= 6.9)
+                    {
+                        xeploai = "C+";
+                    }
+                    else if (5.5 <= x && x <= 6.4)
+                    {
+                        xeploai = "C";
+                    }
+                    else if (5 <= x && x <= 5.4)
+                    {
+                        xeploai = "D+";
+                    }
+                    else if (4 <= x && x <= 4.9)
+                    {
+                        xeploai = "D";
+                    }
+                    else if (x < 4)
+                    {
+                        xeploai = "F";
+                    }
+                    query.Diem_TongKet = x;
+                    query.Xep_loai=xeploai;
                     await _tongketRepository.UpdateAsync(query);
                     var lstst = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
                     var dto = new GetTongKet
@@ -81,8 +114,6 @@ namespace QLSV.Module.TongKetManagement
                         Name = lstst.Name,
                         Diem_TongKet = i.Diem_TongKet,
                         Xep_loai = i.Xep_loai,
-                        Hoc_ky = i.Hoc_ky,
-                        Nam_hoc = i.Nam_hoc
                     };
                     lst.Add(dto);
                 }
@@ -100,8 +131,7 @@ namespace QLSV.Module.TongKetManagement
                         Name = lstst.Name,
                         Diem_TongKet = i.Diem_TongKet,
                         Xep_loai = i.Xep_loai,
-                        Hoc_ky = i.Hoc_ky,
-                        Nam_hoc = i.Nam_hoc
+                       
                     };
                     lst.Add(dto);
                 }
@@ -122,8 +152,7 @@ namespace QLSV.Module.TongKetManagement
                 var query = await _tongketRepository.FirstOrDefaultAsync(e => e.Id == i.Id);
                 var lstkq = await _ketqua.GetAllListAsync();
                 var lstkq1 = lstkq.Where(p => p.StudentId
-                == i.StudentId && p.Hoc_ky == i.Hoc_ky &&
-                p.Nam_hoc == i.Nam_hoc).ToList();
+                == i.StudentId).ToList();
                 foreach (var a in lstkq1)
                 {
                     var mh = await _monhoc.FirstOrDefaultAsync(e => e.Id == a.MonHocId);
@@ -134,7 +163,42 @@ namespace QLSV.Module.TongKetManagement
                 {
                     tk = tong / tongtin;
                 }
-                query.Diem_TongKet= tk;
+                double x = Math.Truncate(tk * 100) / 100;
+                String xeploai = "";
+                if (8.5 <= x && x <= 10)
+                {
+                    xeploai = "A";
+                }
+                else if (8 <= x && x <= 8.4)
+                {
+                    xeploai = "B+";
+                }
+                else if (7 <= x && x <= 7.9)
+                {
+                    xeploai = "B";
+                }
+                else if (6.5 <= x && x <= 6.9)
+                {
+                    xeploai = "C+";
+                }
+                else if (5.5 <= x && x <= 6.4)
+                {
+                    xeploai = "C";
+                }
+                else if (5 <= x && x <= 5.4)
+                {
+                    xeploai = "D+";
+                }
+                else if (4 <= x && x <= 4.9)
+                {
+                    xeploai = "D";
+                }
+                else if (x < 4)
+                {
+                    xeploai = "F";
+                }
+                query.Diem_TongKet= x;
+                query.Xep_loai= xeploai;
                 await _tongketRepository.UpdateAsync(query);
                 var lstst = await _student.FirstOrDefaultAsync(e => e.Id == i.StudentId);
                 var dto = new GetTongKet
@@ -144,8 +208,7 @@ namespace QLSV.Module.TongKetManagement
                    Name= lstst.Name,
                    Diem_TongKet=i.Diem_TongKet,
                    Xep_loai=i.Xep_loai,
-                   Hoc_ky=i.Hoc_ky,
-                   Nam_hoc=i.Nam_hoc
+                  
                 };
                 lst.Add(dto);
             }
@@ -160,8 +223,7 @@ namespace QLSV.Module.TongKetManagement
 
             var lstkq= await _ketqua.GetAllListAsync();
             var lstkq1=lstkq.Where(p=>p.StudentId
-            ==input.StudentId && p.Hoc_ky==input.Hoc_ky &&
-            p.Nam_hoc==input.Nam_hoc).ToList();
+            ==input.StudentId ).ToList();
             foreach(var i in lstkq1)
             {
                 var mh = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
@@ -173,13 +235,45 @@ namespace QLSV.Module.TongKetManagement
                 tk=tong/tongtin;
             }
             double x = Math.Truncate(tk * 100) / 100;
+            String xeploai = "";
+            if (8.5 <= x && x <= 10)
+            {
+                xeploai = "A";
+            }
+            else if (8<=x && x <= 8.4) 
+            {
+                xeploai = "B+";
+            }
+            else if (7<=x && x <= 7.9)
+            {
+                xeploai = "B";
+            }
+            else if (6.5 <= x && x <= 6.9)
+            {
+                xeploai = "C+";
+            }
+            else if (5.5 <= x && x <= 6.4)
+            {
+                xeploai = "C";
+            }
+            else if (5 <= x && x <= 5.4)
+            {
+                xeploai = "D+";
+            }
+            else if (4 <= x && x <= 4.9)
+            {
+                xeploai = "D";
+            }
+            else if (x <4)
+            {
+                xeploai = "F";
+            }
             var tongket = new TongKet
             {
                 StudentId= input.StudentId,
                 Diem_TongKet=x,
-                Xep_loai=input.Xep_loai,
-                Hoc_ky=input.Hoc_ky,
-                Nam_hoc=input.Nam_hoc,
+                Xep_loai=xeploai,
+               
             };
             await _tongketRepository.InsertAsync(tongket);
         }
@@ -196,8 +290,7 @@ namespace QLSV.Module.TongKetManagement
             double tk = 0;
             var lstkq = await _ketqua.GetAllListAsync();
             var lstkq1 = lstkq.Where(p => p.StudentId
-            == input.StudentId && p.Hoc_ky == input.Hoc_ky &&
-            p.Nam_hoc == input.Nam_hoc).ToList();
+            == input.StudentId).ToList();
             foreach (var i in lstkq1)
             {
                 var mh = await _monhoc.FirstOrDefaultAsync(e => e.Id == i.MonHocId);
@@ -208,12 +301,44 @@ namespace QLSV.Module.TongKetManagement
             {
                 tk = tong / tongtin;
             }
+            double x = Math.Truncate(tk * 100) / 100;
+            String xeploai = "";
+            if (8.5 <= x && x <= 10)
+            {
+                xeploai = "A";
+            }
+            else if (8 <= x && x <= 8.4)
+            {
+                xeploai = "B+";
+            }
+            else if (7 <= x && x <= 7.9)
+            {
+                xeploai = "B";
+            }
+            else if (6.5 <= x && x <= 6.9)
+            {
+                xeploai = "C+";
+            }
+            else if (5.5 <= x && x <= 6.4)
+            {
+                xeploai = "C";
+            }
+            else if (5 <= x && x <= 5.4)
+            {
+                xeploai = "D+";
+            }
+            else if (4 <= x && x <= 4.9)
+            {
+                xeploai = "D";
+            }
+            else if (x < 4)
+            {
+                xeploai = "F";
+            }
             var query = await _tongketRepository.FirstOrDefaultAsync(e => e.Id == id);
             query.StudentId = input.StudentId;
-            query.Diem_TongKet = tk;
-            query.Xep_loai=input.Xep_loai;    
-            query.Hoc_ky= input.Hoc_ky;
-            query.Nam_hoc= input.Nam_hoc;
+            query.Diem_TongKet = x;
+            query.Xep_loai=xeploai;    
             await _tongketRepository.UpdateAsync(query);
         }
     }
