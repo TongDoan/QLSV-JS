@@ -13,6 +13,7 @@ namespace QLSV.Module.KetQuaManagenent.Dto
         public string Name { get; set; }
         public int? MonHocId { get; set; }
         public string TenMonHoc { get; set; }
+        public int SoTinChi { get; set; }
         public int? GiaoVienId { get; set; }
         public string TenGiaoVien { get; set; }
         public double DiemQuaTrinh { get; set; }
