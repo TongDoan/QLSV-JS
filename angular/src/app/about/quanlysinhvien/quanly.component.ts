@@ -49,7 +49,7 @@ export class QuanlyComponent {
 
   ngOnInit(): void {
     this.formLoc = this.fb.group({
-      selectedSinhVien: ["", Validators.required],
+      name: ["", Validators.required],
       selectedQue: ["", Validators.required],
       selectedLop: ["", Validators.required],
       selectedGioiTinh: ["", Validators.required],
@@ -80,12 +80,6 @@ export class QuanlyComponent {
     });
   }
 
-  filterSinhVien(event: AutoCompleteCompleteEvent) {
-    const query = event.query;
-    this.filteredSinhVien = this.listsinhvien.filter(
-      (item) => item.name.toLowerCase().indexOf(query.toLowerCase()) === 0
-    );
-  }
   filterQue(event: AutoCompleteCompleteEvent) {
     const query = event.query;
     this.filteredQue = this.listque.filter(
@@ -100,9 +94,10 @@ export class QuanlyComponent {
   }
 
   filter() {
+    debugger;
     this.searchstudentservice
       .getSearchFillterStudent(
-        this.formLoc.value.selectedSinhVien.name,
+        this.formLoc.value.name,
         this.formLoc.value.selectedGioiTinh.key,
         this.formLoc.value.selectedQue.tenQue,
         this.formLoc.value.selectedLop.tenLop
