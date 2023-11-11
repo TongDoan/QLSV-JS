@@ -80,7 +80,13 @@ export class LopComponent {
   }
 
   delete() {
-    this.lopservice.deleteLop(this.idlop).subscribe((result) => {});
-    this.cd.detectChanges();
+    const confirmUpload = confirm(
+      "Xóa lớp cũng sẽ xóa tất cả sinh viên và điểm của họ"
+    );
+
+    if (confirmUpload) {
+      this.lopservice.deleteLop(this.idlop).subscribe((result) => {});
+      this.cd.detectChanges();
+    }
   }
 }

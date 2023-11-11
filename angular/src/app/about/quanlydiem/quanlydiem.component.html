@@ -35,10 +35,7 @@
         <br />
         Điểm tổng kết :
         {{ tongketselected[0]?.diem_TongKet | number : "1.2-2" }}
-        <br />
-        Học kì :
-        {{ tongketselected[0]?.hoc_ky }}&nbsp; Năm học :
-        {{ tongketselected[0]?.nam_hoc }}
+
         <br />Xếp loại :
         {{ tongketselected[0]?.xep_loai }}
       </div>
@@ -63,7 +60,7 @@
               <th style="width: 5%">STT</th>
               <th style="width: 17%">Sinh viên</th>
               <th style="width: 23%">Tên môn học</th>
-              <th style="width: 5%">idGiảng viên</th>
+              <th style="width: 5%">Số tín chỉ</th>
               <th style="width: 10%">Giảng viên</th>
               <th style="width: 8%">Điểm quá trình</th>
 
@@ -79,7 +76,7 @@
               <td>{{ i + 1 }}</td>
               <td>{{ listketqua[i].name }}</td>
               <td>{{ listketqua[i].tenMonHoc }}</td>
-              <td>{{ listketqua[i].giaoVienId }}</td>
+              <td>{{ listketqua[i].soTinChi }}</td>
               <td>{{ listketqua[i].tenGiaoVien }}</td>
               <td>{{ listketqua[i].diemQuaTrinh }}</td>
 

@@ -4829,6 +4829,7 @@ export class GetKetQua implements IGetKetQua {
     name: string | undefined;
     monHocId: number | undefined;
     tenMonHoc: string | undefined;
+    soTinChi: number;
     giaoVienId: number | undefined;
     tenGiaoVien: string | undefined;
     diemQuaTrinh: number;
@@ -4854,6 +4855,7 @@ export class GetKetQua implements IGetKetQua {
             this.name = _data["name"];
             this.monHocId = _data["monHocId"];
             this.tenMonHoc = _data["tenMonHoc"];
+            this.soTinChi = _data["soTinChi"];
             this.giaoVienId = _data["giaoVienId"];
             this.tenGiaoVien = _data["tenGiaoVien"];
             this.diemQuaTrinh = _data["diemQuaTrinh"];
@@ -4879,6 +4881,7 @@ export class GetKetQua implements IGetKetQua {
         data["name"] = this.name;
         data["monHocId"] = this.monHocId;
         data["tenMonHoc"] = this.tenMonHoc;
+        data["soTinChi"] = this.soTinChi;
         data["giaoVienId"] = this.giaoVienId;
         data["tenGiaoVien"] = this.tenGiaoVien;
         data["diemQuaTrinh"] = this.diemQuaTrinh;
@@ -4904,6 +4907,7 @@ export interface IGetKetQua {
     name: string | undefined;
     monHocId: number | undefined;
     tenMonHoc: string | undefined;
+    soTinChi: number;
     giaoVienId: number | undefined;
     tenGiaoVien: string | undefined;
     diemQuaTrinh: number;
